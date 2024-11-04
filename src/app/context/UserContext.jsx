@@ -42,6 +42,9 @@ export const AuthProvider = ({ children }) => {
    const [isLoading, setIsLoading] = useState(true);
    const [isActive, setIsActive] = useState(false);
 
+   const [userId, setUserId] = useState("");
+   const [refId, setRefId] = useState("");
+
    const apiClient = axios.create({
       baseURL:
          "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
@@ -139,6 +142,33 @@ export const AuthProvider = ({ children }) => {
       }
    };
 
+   const initializeTelegram = () => {
+      const tele = window.Telegram?.WebApp;
+
+      // Platform kontrolü ve Telegram uygulamasının başlatılması
+
+      tele?.ready();
+      tele?.expand();
+
+      const user = tele?.initDataUnsafe?.user;
+
+      if (tele && user) {
+         var chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
+         console.log(chatId);
+         var referenceId = window.Telegram.WebApp.initDataUnsafe.start_param;
+         setUserId(chatId);
+         setRefId(referenceId);
+         if (referenceId != null) {
+            console.log("ReferenceId", referenceId);
+         }
+
+         console.log("userId:", chatId);
+      } else {
+         setUserId(1234567891);
+         console.log("Telegram not available");
+      }
+   };
+
    const handleFlipCoin = async (userId) => {
       const requestPayload = encryptData(
          JSON.stringify({ userId: Number(userId) })
@@ -158,9 +188,15 @@ export const AuthProvider = ({ children }) => {
    };
 
    useEffect(() => {
-      console.log("Login denemesi");
-      loginOrCreateWithUsername(1234567891);
+      console.log("Telegram Initialize");
+      initializeTelegram();
    }, []);
+
+   useEffect(() => {
+      if (userId === "") return;
+      console.log("Login denemesi");
+      loginOrCreateWithUsername(userId);
+   }, [userId]);
 
    const value = {
       onLoginOrCreate: loginOrCreateWithUsername,
@@ -172,6 +208,7 @@ export const AuthProvider = ({ children }) => {
       addBalance,
       authState,
       tasks,
+      refId,
       dailyBoosters,
       balance,
       eventState,

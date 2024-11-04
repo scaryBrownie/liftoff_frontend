@@ -14,7 +14,8 @@
       "next": "15.0.2",
       "react": "19.0.0-rc-02c0e824-20241028",
       "react-dom": "19.0.0-rc-02c0e824-20241028",
-      "swiper": "^11.1.14"
+      "swiper": "^11.1.14",
+      "telegraf": "^4.16.3"
    },
    "devDependencies": {
       "@svgr/webpack": "^8.1.0",
