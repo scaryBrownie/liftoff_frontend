@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiClient.post(
         "buyBooster",
-        encryptData(JSON.stringify({ userId, boosterId }))
+        encryptData(JSON.stringify({ userId: userId, boosterId: boosterId }))
       );
       const data = JSON.parse(decryptData(response.data));
       console.log("Booster satın alma yanıtı:", data);
