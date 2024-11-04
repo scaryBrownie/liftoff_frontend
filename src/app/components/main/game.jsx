@@ -11,7 +11,7 @@ const Game = () => {
    const [showAnimation, setShowAnimation] = useState(false);
    const [isFlipping, setIsFlipping] = useState(false);
    const [buttonNum, setButtonNum] = useState(0);
-   const { handleFlipCoin, addBalance } = useAuth();
+   const { handleFlipCoin, addBalance, userId } = useAuth();
    const [coinFlipData, setCoinFlipData] = useState();
    let flipTimeout; // Define a variable to store timeout IDs
    let animationTimeout;

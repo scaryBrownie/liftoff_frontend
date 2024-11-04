@@ -10,8 +10,13 @@ import { useAuth } from "../context/UserContext";
 const Shop = () => {
    const { balance } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
-   const { dailyBoosters, handleBuyBooster, dailyBoosterKeys, boosterData } =
-      useAuth();
+   const {
+      dailyBoosters,
+      handleBuyBooster,
+      dailyBoosterKeys,
+      boosterData,
+      userId,
+   } = useAuth();
    const [powerBoosters, setPowerBoosters] = useState([
       {
          boosterName: "Sleep & Earn",

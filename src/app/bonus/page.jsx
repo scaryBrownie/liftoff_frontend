@@ -7,7 +7,7 @@ import CloseIcon from "../assets/icons/close-icon";
 
 const Bonus = () => {
    const [availableBalance, setAvailableBalance] = useState(8156.5);
-   const { balance, handleWalletTaskFinish, tasks } = useAuth();
+   const { balance, handleWalletTaskFinish, tasks, userId } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
 
    const [walletInput, setWalletInput] = useState("");
