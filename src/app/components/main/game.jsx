@@ -11,14 +11,15 @@ const Game = () => {
    const [showAnimation, setShowAnimation] = useState(false);
    const [isFlipping, setIsFlipping] = useState(false);
    const [buttonNum, setButtonNum] = useState(0);
-   const { handleFlipCoin, addBalance, userId, currentStreak } = useAuth();
+   const { handleFlipCoin, addBalance, userId, currentStreak, balance } =
+      useAuth();
    const [coinFlipData, setCoinFlipData] = useState();
    let flipTimeout; // Define a variable to store timeout IDs
    let animationTimeout;
 
    const handleFlip = async (choice, buttonNum) => {
       if (isFlipping) return; // Prevent re-clicks during flip
-
+      if (balance <= 0) return;
       setIsFlipping(true); // Lock flip at start
       setButtonNum(buttonNum);
 
