@@ -14,8 +14,6 @@ const Game = () => {
    const { handleFlipCoin, addBalance, userId, currentStreak, balance } =
       useAuth();
    const [coinFlipData, setCoinFlipData] = useState();
-   let flipTimeout; // Define a variable to store timeout IDs
-   let animationTimeout;
 
    const handleFlip = async (choice, buttonNum) => {
       if (isFlipping) return; // Prevent re-clicks during flip
