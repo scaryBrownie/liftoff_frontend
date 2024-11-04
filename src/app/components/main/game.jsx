@@ -11,7 +11,7 @@ const Game = () => {
    const [showAnimation, setShowAnimation] = useState(false);
    const [isFlipping, setIsFlipping] = useState(false);
    const [buttonNum, setButtonNum] = useState(0);
-   const { handleFlipCoin, addBalance, userId } = useAuth();
+   const { handleFlipCoin, addBalance, userId, currentStreak } = useAuth();
    const [coinFlipData, setCoinFlipData] = useState();
    let flipTimeout; // Define a variable to store timeout IDs
    let animationTimeout;
@@ -133,6 +133,17 @@ const Game = () => {
                >
                   <h5 className="text-[36px]">TAILS</h5>
                </button>
+            </div>
+            <div
+               className={`streak w-full items-center justify-center mt-3 relative z-[1000] ${
+                  currentStreak >= 2 ? "flex" : "hidden"
+               }`}
+            >
+               <div className="px-4 py-[6px] border-yellow border-2 heads-tails-shadow rounded-lg">
+                  <h5 className="text-[26px] text-yellow">
+                     STREAK {currentStreak}X
+                  </h5>
+               </div>
             </div>
             <div className="absolute rocket-container right-8 bottom-3">
                <Image

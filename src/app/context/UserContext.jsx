@@ -36,6 +36,8 @@ export const AuthProvider = ({ children }) => {
    const [completedOneTime, setCompletedOneTime] = useState({});
    const [completedDaily, setCompletedDaily] = useState({});
 
+   const [currentStreak, setCurrentStreak] = useState();
+
    const apiClient = axios.create({
       baseURL:
          "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }) => {
             ? data.dailyCompletions
             : Object.keys(data.dailyCompletions);
          setCompletedDaily(dailyCompletions);
-
+         setCurrentStreak(data.currentStreak);
          setUserRefId(data.referenceDatas.referenceId);
          setBalance(data.points);
       } catch (error) {
@@ -198,6 +200,8 @@ export const AuthProvider = ({ children }) => {
          console.log("userId:", chatId);
       } else {
          setUserId(1234567891);
+         console.log("local");
+         console.log(userId);
          console.log("Telegram not available");
       }
    };
@@ -242,11 +246,13 @@ export const AuthProvider = ({ children }) => {
       addBalance,
       completedOneTime,
       completedDaily,
+      currentStreak,
       authState,
       boosterData,
       tasks,
       refId,
       userRefId,
+      userId,
       dailyBoosters,
       dailyBoosterKeys,
       balance,
