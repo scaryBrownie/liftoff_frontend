@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
    const apiClient = axios.create({
       baseURL:
-         "https://tbd2bi7spj.execute-api.us-east-1.amazonaws.com/liftoffApi_stage/",
+         "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
       headers: {
          "Content-Type": "application/json",
          "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
