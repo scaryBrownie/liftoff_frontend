@@ -5,10 +5,12 @@ import SkinSlider from "../components/shop/skinSlider";
 import Image from "next/image";
 import Front from "../assets/coin/tail.png";
 import Back from "../assets/coin/head.png";
+import { useAuth } from "../context/UserContext";
 
 const Shop = () => {
    const [balance, setBalance] = useState(8175.5);
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
+   const { dailyBoosters } = useAuth();
    const [powerBoosters, setPowerBoosters] = useState([
       {
          boosterName: "Sleep & Earn",
@@ -89,36 +91,20 @@ const Shop = () => {
                   <h5 className="text-orange text-[22px] ">DAILY BOOSTERS</h5>
                </div>
                <div className="daily-boosters flex w-full gap-4 mt-5">
-                  <div className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative">
-                     <Image
-                        src={Front}
-                        alt="front"
-                        className="h-[50px] w-auto -ml-2"
-                     />
-                     <div className="absolute right-[6px] top-1">
-                        <h5 className="text-[20px]">5X</h5>
+                  {dailyBoosters.map((booster) => (
+                     <div className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative">
+                        <Image
+                           src={Front}
+                           alt="front"
+                           className="h-[50px] w-auto -ml-2"
+                        />
+                        <div className="absolute right-[6px] top-1">
+                           <h5 className="text-[16px]">
+                              {booster.multiplier}X
+                           </h5>
+                        </div>
                      </div>
-                  </div>
-                  <div className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative">
-                     <Image
-                        src={Back}
-                        alt="front"
-                        className="h-[50px] w-auto -ml-2"
-                     />
-                     <div className="absolute right-[6px] top-1">
-                        <h5 className="text-[20px]">2X</h5>
-                     </div>
-                  </div>
-                  <div className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative">
-                     <Image
-                        src={Front}
-                        alt="front"
-                        className="h-[50px] w-auto -ml-2"
-                     />
-                     <div className="absolute right-[6px] top-1">
-                        <h5 className="text-[20px]">5X</h5>
-                     </div>
-                  </div>
+                  ))}
                </div>
             </div>
             <div className="power-boosters w-full flex flex-col pb-[10px]">

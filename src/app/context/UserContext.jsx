@@ -11,6 +11,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+   const [dailyBoosters, setDailyBoosters] = useState({});
    const [authState, setAuthState] = useState({
       authenticated: false,
       user: {
@@ -65,6 +66,10 @@ export const AuthProvider = ({ children }) => {
             ? data.activeTasks
             : Object.values(data.activeTasks);
          setTasks(tasks);
+         const dailyBoosters = Array.isArray(data.boosters)
+            ? data.activeTasks
+            : Object.values(data.boosters);
+         setDailyBoosters(dailyBoosters);
       } catch (error) {
          console.error("Login hatası:", error);
          setIsActive(false);
@@ -152,6 +157,7 @@ export const AuthProvider = ({ children }) => {
       handleBuyBooster,
       authState,
       tasks,
+      dailyBoosters,
       eventState,
       communityState,
       gameState,
