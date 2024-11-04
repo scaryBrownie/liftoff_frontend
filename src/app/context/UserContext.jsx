@@ -108,6 +108,7 @@ export const AuthProvider = ({ children }) => {
          const data = JSON.parse(decryptData(response.data));
          addBalance(data.taskDetails.pointsEarned);
          console.log("Normal görev tamamlandı yanıtı:", data);
+         window.location.reload();
       } catch (error) {
          console.error("Normal görev tamamlama hatası:", error);
       }
@@ -172,6 +173,8 @@ export const AuthProvider = ({ children }) => {
          );
          const data = JSON.parse(decryptData(response.data));
          console.log("Cüzdan görevi tamamlandı yanıtı:", data);
+
+         window.location.reload();
       } catch (error) {
          console.error("Cüzdan görevi tamamlama hatası:", error);
       }

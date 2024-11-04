@@ -9,9 +9,6 @@ const TasksList = ({ tasks, handleInputTaskOpen }) => {
    };
    const handleTaskFinish = (taskId) => {
       handleNormalTaskFinish(userId, taskId);
-      setTimeout(() => {
-         window.location.reload();
-      }, 1500);
    };
    return (
       <div className="tasks-list w-full h-full flex flex-col gap-4  pr-2">

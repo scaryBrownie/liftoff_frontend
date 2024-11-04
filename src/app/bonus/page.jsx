@@ -26,9 +26,6 @@ const Bonus = () => {
    };
    const handleWalletTask = () => {
       handleWalletTaskFinish(userId, "connectWallet", walletInput);
-      setTimeout(() => {
-         window.location.reload();
-      }, 1000);
    };
    // Define the handleTasks function to filter tasks based on taskSelection
    const handleTasks = () => {
