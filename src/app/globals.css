@@ -100,12 +100,12 @@
 }
 
 .sideA {
-   background-image: url("./assets/coin/tail.png"); /* Use your actual image path */
+   background-image: url("./assets/coin/head.png"); /* Use your actual image path */
    z-index: 100;
 }
 
 .sideB {
-   background-image: url("./assets/coin/head.png"); /* Use your actual image path */
+   background-image: url("./assets/coin/tail.png"); /* Use your actual image path */
    transform: rotateY(-180deg);
 }
 
@@ -157,4 +157,23 @@
    to {
       transform: rotate(1turn);
    }
+}
+
+@keyframes fadeUp {
+   0% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+   100% {
+      opacity: 0;
+      transform: translateY(-60px); /* Adjust this value as needed */
+   }
+}
+
+.earned-points {
+   opacity: 0;
+}
+
+.fade-up {
+   animation: fadeUp 2s ease-out;
 }

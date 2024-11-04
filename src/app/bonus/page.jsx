@@ -7,9 +7,8 @@ import CloseIcon from "../assets/icons/close-icon";
 
 const Bonus = () => {
    const [availableBalance, setAvailableBalance] = useState(8156.5);
-   const { balance, handleWalletTaskFinish } = useAuth();
+   const { balance, handleWalletTaskFinish, tasks } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
-   const { tasks } = useAuth();
 
    const [walletInput, setWalletInput] = useState("");
 
@@ -27,6 +26,9 @@ const Bonus = () => {
    };
    const handleWalletTask = () => {
       handleWalletTaskFinish(1234567891, "connectWallet", walletInput);
+      setTimeout(() => {
+         window.location.reload();
+      }, 1000);
    };
    // Define the handleTasks function to filter tasks based on taskSelection
    const handleTasks = () => {

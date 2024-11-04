@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
 import { decryptData, encryptData } from "../tools/encryptdecrypt";
 import Loader from "../components/common/loader";
+import { isFloat } from "../tools/fixBalanceNumber";
 
 const AuthContext = createContext();
 
@@ -23,21 +24,6 @@ export const AuthProvider = ({ children }) => {
    });
    const [balance, setBalance] = useState(0);
    const [tasks, setTasks] = useState({});
-   const [eventState, setEventState] = useState([]);
-   const [communityState, setCommunityState] = useState([]);
-   const [gameState, setGameState] = useState({
-      gameSettings: {
-         spawnSpeed: 0,
-         moveSpeed: 0,
-         freezeTime: 0,
-      },
-      gameIcons: {
-         icon1: "",
-         icon2: "",
-         icon3: "",
-         gameBg: "",
-      },
-   });
 
    const [isLoading, setIsLoading] = useState(true);
    const [isActive, setIsActive] = useState(false);
@@ -45,6 +31,11 @@ export const AuthProvider = ({ children }) => {
    const [userId, setUserId] = useState("");
    const [refId, setRefId] = useState("");
    const [userRefId, setUserRefId] = useState("");
+   const [dailyBoosterKeys, setDailyBoosterKeys] = useState({});
+   const [boosterData, setBoosterData] = useState({});
+   const [completedOneTime, setCompletedOneTime] = useState({});
+   const [completedDaily, setCompletedDaily] = useState({});
+
    const apiClient = axios.create({
       baseURL:
          "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
@@ -71,9 +62,30 @@ export const AuthProvider = ({ children }) => {
          setTasks(tasks);
 
          const dailyBoosters = Array.isArray(data.boosters)
-            ? data.activeTasks
+            ? data.dailyBoosters
             : Object.values(data.boosters);
          setDailyBoosters(dailyBoosters);
+
+         const dailyBoosterKeys = Array.isArray(data.boosters)
+            ? data.dailyBoosters
+            : Object.keys(data.boosters);
+         setDailyBoosterKeys(dailyBoosterKeys);
+
+         const boosterData = Array.isArray(data.boosterDatas)
+            ? data.boosterDatas
+            : Object.values(data.boosterDatas);
+         setBoosterData(boosterData);
+
+         const oneTimeCompletions = Array.isArray(data.oneTimeCompletions)
+            ? data.oneTimeCompletions
+            : Object.keys(data.oneTimeCompletions);
+         setCompletedOneTime(oneTimeCompletions);
+
+         const dailyCompletions = Array.isArray(data.dailyCompletions)
+            ? data.dailyCompletions
+            : Object.keys(data.dailyCompletions);
+         setCompletedDaily(dailyCompletions);
+
          setUserRefId(data.referenceDatas.referenceId);
          setBalance(data.points);
       } catch (error) {
@@ -111,6 +123,9 @@ export const AuthProvider = ({ children }) => {
             )
          );
          const data = JSON.parse(decryptData(response.data));
+         if (isFloat(data.remainingPoints)) {
+            changeBalance(data.remainingPoints);
+         }
          console.log("Booster satın alma yanıtı:", data);
       } catch (error) {
          console.error("Booster satın alma hatası:", error);
@@ -198,8 +213,9 @@ export const AuthProvider = ({ children }) => {
             requestPayload
          );
          const data = JSON.parse(decryptData(response.data));
-         changeBalance(data.currentPoints);
+         //    changeBalance(data.currentPoints);
          console.log("Yazı-tura oyunu yanıtı:", data);
+         return data.earnedPoints;
       } catch (error) {
          console.error("Yazı-tura oyunu hatası:", error);
       }
@@ -224,15 +240,16 @@ export const AuthProvider = ({ children }) => {
       handleFlipCoin,
       handleBuyBooster,
       addBalance,
+      completedOneTime,
+      completedDaily,
       authState,
+      boosterData,
       tasks,
       refId,
       userRefId,
       dailyBoosters,
+      dailyBoosterKeys,
       balance,
-      eventState,
-      communityState,
-      gameState,
       isLoading,
       isActive,
    };
