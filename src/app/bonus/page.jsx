@@ -29,11 +29,11 @@ const Bonus = () => {
    }, [taskSelection]);
 
    return (
-      <div className="bonus w-full h-full flex flex-col pt-10 px-8">
+      <div className="bonus w-full h-full flex flex-col pt-8 px-8 pb-4">
          <div className="title flex items-center w-full text-center">
             <h5 className="text-orange text-[38px] ">COMPLETE BONUS TASKS</h5>
          </div>
-         <div className="w-full h-auto flex items-center mt-7">
+         <div className="w-full h-auto flex items-center mt-4">
             <AvailableLiftoff liftoff={availableBalance} />
          </div>
          <div className="tasks-selector w-full flex items-center gap-6 mt-6">
@@ -68,7 +68,7 @@ const Bonus = () => {
                ONE TIME
             </button>
          </div>
-         <div className="tasks w-full mt-8 overflow-y-scroll pb-[10px]">
+         <div className="tasks w-full mt-8 pb-[10px] overflow-y-auto">
             <TasksList tasks={filteredTasks} />
          </div>
       </div>

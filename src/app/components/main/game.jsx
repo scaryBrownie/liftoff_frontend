@@ -16,7 +16,7 @@ const Game = () => {
       if (isFlipping) return; // Prevent re-click during flip
       setButtonNum(buttonNum);
       setIsFlipping(true);
-      handleFlipCoin(1234567890);
+      handleFlipCoin(12345678901);
       const isHeads = Math.random() <= 0.5;
       setCoinFlip(isHeads ? "heads" : "tails");
 

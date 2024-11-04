@@ -4,7 +4,7 @@ import React from "react";
 const TasksList = ({ tasks }) => {
    const { handleNormalTaskFinish } = useAuth();
    return (
-      <div className="tasks-list w-full h-full flex flex-col gap-4 overflow-y-scroll">
+      <div className="tasks-list w-full h-full flex flex-col gap-4  pr-2">
          {tasks.map((task) => (
             <div
                className="task-item h-[52px] border border-white rounded-lg flex-shrink-0 flex items-center justify-between px-2"

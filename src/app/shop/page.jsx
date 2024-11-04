@@ -30,15 +30,15 @@ const Shop = () => {
       },
    ]);
    return (
-      <div className="shop w-full h-full flex flex-col pt-4 px-6 overflow-y-scroll mb-8">
-         <div className="balance-container w-full flex items-center justify-end">
+      <div className="shop w-full h-full flex flex-col pt-4 overflow-y-scroll mb-8">
+         <div className="balance-container w-full flex items-center justify-end px-6">
             <ShopBalance balance={balance} />
          </div>
          <div className="customize-coin w-full flex flex-col">
-            <div className="title flex items-center w-full mt-7">
+            <div className="title flex items-center w-full mt-7 px-6">
                <h5 className="text-orange text-[32px] ">customize your coin</h5>
             </div>
-            <div className="skin-selector w-full flex items-center gap-6 mt-4">
+            <div className="skin-selector w-full flex items-center gap-6 mt-4 px-6">
                <button
                   className={`text-[20px] ${
                      taskSelection === 0
@@ -76,11 +76,11 @@ const Shop = () => {
                   SKIN#3
                </button>
             </div>
-            <div className="skin-slider w-full mt-4">
+            <div className="skin-slider w-full mt-4 pl-6">
                <SkinSlider />
             </div>
          </div>
-         <div className="boosters w-full flex flex-col">
+         <div className="boosters w-full flex flex-col px-6">
             <div className="title flex items-center w-full mt-7">
                <h5 className="text-orange text-[32px] ">BUY BOOSTERS</h5>
             </div>

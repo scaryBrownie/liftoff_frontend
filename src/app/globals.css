@@ -46,6 +46,25 @@
    overflow: hidden !important;
 }
 
+::-webkit-scrollbar {
+   width: 6px;
+   border-radius: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   background: #28272799;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: rgb(38, 38, 38);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: black;
+}
 /*COINFLIP*/
 
 /* CoinFlip.module.css */
