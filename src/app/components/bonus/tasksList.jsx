@@ -1,8 +1,11 @@
 import { useAuth } from "@/app/context/UserContext";
 import React from "react";
 
-const TasksList = ({ tasks }) => {
+const TasksList = ({ tasks, handleInputTaskOpen }) => {
    const { handleNormalTaskFinish } = useAuth();
+   const handleInputTask = () => {
+      handleInputTaskOpen();
+   };
    return (
       <div className="tasks-list w-full h-full flex flex-col gap-4  pr-2">
          {tasks.map((task) => (
@@ -22,14 +25,25 @@ const TasksList = ({ tasks }) => {
                   </div>
                </div>
                <div className="right">
-                  <button
-                     className="flex items-center justify-center bg-orange w-[54px] h-[28px] rounded-lg"
-                     onClick={() => {
-                        handleNormalTaskFinish(1234567891, task.id);
-                     }}
-                  >
-                     <h5 className="text-black text-[16px]">START</h5>
-                  </button>
+                  {task.id === "connectWallet" ? (
+                     <button
+                        className="flex items-center justify-center bg-orange w-[54px] h-[28px] rounded-lg"
+                        onClick={() => {
+                           handleInputTask();
+                        }}
+                     >
+                        <h5 className="text-black text-[16px]">START</h5>
+                     </button>
+                  ) : (
+                     <button
+                        className="flex items-center justify-center bg-orange w-[54px] h-[28px] rounded-lg"
+                        onClick={() => {
+                           handleNormalTaskFinish(1234567891, task.id);
+                        }}
+                     >
+                        <h5 className="text-black text-[16px]">START</h5>
+                     </button>
+                  )}
                </div>
             </div>
          ))}

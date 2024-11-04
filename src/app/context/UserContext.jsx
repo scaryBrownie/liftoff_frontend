@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
    const [userId, setUserId] = useState("");
    const [refId, setRefId] = useState("");
-
+   const [userRefId, setUserRefId] = useState("");
    const apiClient = axios.create({
       baseURL:
          "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
             ? data.activeTasks
             : Object.values(data.boosters);
          setDailyBoosters(dailyBoosters);
-
+         setUserRefId(data.referenceDatas.referenceId);
          setBalance(data.points);
       } catch (error) {
          console.error("Login hatası:", error);
@@ -209,6 +209,7 @@ export const AuthProvider = ({ children }) => {
       authState,
       tasks,
       refId,
+      userRefId,
       dailyBoosters,
       balance,
       eventState,

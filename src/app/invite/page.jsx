@@ -1,7 +1,36 @@
+"use client";
 import React from "react";
 import CopyIcon from "../assets/icons/copy-icon";
+import { useAuth } from "../context/UserContext";
 
 const Invite = () => {
+   const { userRefId } = useAuth();
+
+   const handleInviteClick = () => {
+      const tele = window.Telegram?.WebApp;
+      if (tele) {
+         tele.openTelegramLink(
+            `https://t.me/share/url?url=${encodeURIComponent(
+               userRefId
+            )}&text=Join%20using%20my%20referral%20code`
+         );
+      } else {
+         console.log("Telegram WebApp is not available");
+      }
+   };
+
+   const copylink = async () => {
+      try {
+         if (!document.hasFocus()) {
+            window.focus(); // Ensure the document is focused
+         }
+         await navigator.clipboard.writeText(userRefId);
+         console.log("Text copied to clipboard:", userRefId);
+      } catch (error) {
+         console.error("Failed to copy text:", error);
+      }
+   };
+
    return (
       <div className="invite w-full h-full flex flex-col pt-10 px-8">
          <div className="title flex items-center w-full">
@@ -58,12 +87,18 @@ const Invite = () => {
             </div>
          </div>
          <div className="invite-friends w-full flex gap-4 mt-16 mb-8">
-            <div className="left flex-1 w-full h-[50px] bg-orange rounded-lg flex items-center justify-center">
+            <button
+               className="left flex-1 w-full h-[50px] bg-orange rounded-lg flex items-center justify-center"
+               onClick={handleInviteClick}
+            >
                <h5 className="text-[22px] text-black">INVITE FRIENDS</h5>
-            </div>
-            <div className="right w-[60px] h-[50px] bg-orange rounded-lg flex items-center justify-center">
+            </button>
+            <button
+               className="right w-[60px] h-[50px] bg-orange rounded-lg flex items-center justify-center"
+               onClick={copylink}
+            >
                <CopyIcon />
-            </div>
+            </button>
          </div>
       </div>
    );

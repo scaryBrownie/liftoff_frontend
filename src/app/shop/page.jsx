@@ -32,7 +32,7 @@ const Shop = () => {
       },
    ]);
    return (
-      <div className="shop w-full h-full flex flex-col pt-4 overflow-y-scroll mb-8">
+      <div className="shop w-full h-full flex flex-col pt-4 overflow-y-auto mb-8">
          <div className="balance-container w-full flex items-center justify-end px-6">
             <ShopBalance balance={balance} />
          </div>
