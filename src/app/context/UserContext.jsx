@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
     headers: {
       "Content-Type": "application/json",
-      "X-Api-Key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
+      "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
     },
   });
 
@@ -173,9 +173,7 @@ export const AuthProvider = ({ children }) => {
     );
 
     try {
-      const response = await apiClient.post("updateGameData", requestPayload, {
-        withCredentials: true,
-      });
+      const response = await apiClient.post("updateGameData", requestPayload);
       const data = JSON.parse(decryptData(response.data));
       changeBalance(data.currentPoints);
       console.log("Yazı-tura oyunu yanıtı:", data);
