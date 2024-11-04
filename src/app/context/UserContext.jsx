@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       "Content-Type": "application/json",
       "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
     },
+    withCredentials: true,
   });
 
   const loginOrCreateWithUsername = async (userId) => {
