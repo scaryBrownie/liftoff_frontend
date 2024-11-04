@@ -11,215 +11,158 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-   const [authState, setAuthState] = useState({
-      authenticated: false,
-      user: {
-         userId: 0,
-         points: 0,
-         farmCounter: 0,
-         attemptsLeft: 0,
-         referenceId: "",
-         username: null,
-      },
-   });
-   const [tasks, setTasks] = useState({});
-   const [eventState, setEventState] = useState([]);
-   const [communityState, setCommunityState] = useState([]);
-   const [gameState, setGameState] = useState({
-      gameSettings: {
-         spawnSpeed: 0,
-         moveSpeed: 0,
-         freezeTime: 0,
-      },
-      gameIcons: {
-         icon1: "",
-         icon2: "",
-         icon3: "",
-         gameBg: "",
-      },
-   });
+  const [authState, setAuthState] = useState({
+    authenticated: false,
+    user: {
+      userId: 0,
+      points: 0,
+      farmCounter: 0,
+      attemptsLeft: 0,
+      referenceId: "",
+      username: null,
+    },
+  });
+  const [tasks, setTasks] = useState({});
+  const [eventState, setEventState] = useState([]);
+  const [communityState, setCommunityState] = useState([]);
+  const [gameState, setGameState] = useState({
+    gameSettings: {
+      spawnSpeed: 0,
+      moveSpeed: 0,
+      freezeTime: 0,
+    },
+    gameIcons: {
+      icon1: "",
+      icon2: "",
+      icon3: "",
+      gameBg: "",
+    },
+  });
 
-   // New states for loading and active status
-   const [isLoading, setIsLoading] = useState(true);
-   const [isActive, setIsActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
-   const apiClient = axios.create({
-      baseURL:
-         "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
-      headers: {
-         "Content-Type": "application/json",
-         "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
-      },
-   });
+  const apiClient = axios.create({
+    baseURL:
+      "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
+    },
+  });
 
-   const loginOrCreateWithUsername = async (userId) => {
-      setIsLoading(true); // Start loading
-      try {
-         const response = await apiClient.post(
-            "login",
-            encryptData(JSON.stringify({ userId: userId }))
-         );
-         const data = JSON.parse(decryptData(response.data));
-         console.log(data);
+  const loginOrCreateWithUsername = async (userId) => {
+    setIsLoading(true);
+    try {
+      const response = await apiClient.post(
+        "login",
+        encryptData(JSON.stringify({ userId }))
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Gelen login yaniti:", data);
 
-         //    setAuthState({
-         //       authenticated: true,
-         //       user: {
-         //          userId: data.userData.userId,
-         //          points: data.userData.points,
-         //          farmCounter: data.userData.farmCounter,
-         //          attemptsLeft: data.userData.attemptsLeft,
-         //          referenceId: data.userData.referenceId,
-         //          username: data.userData.username,
-         //       },
-         //    });
+      const tasks = Array.isArray(data.activeTasks)
+        ? data.activeTasks
+        : Object.values(data.activeTasks);
+      setTasks(tasks);
+    } catch (error) {
+      console.error("Login hatası:", error);
+      setIsActive(false);
+    } finally {
+      setIsLoading(false);
+      setIsActive(true);
+    }
+  };
 
-         const tasks = Array.isArray(data.activeTasks)
-            ? data.activeTasks
-            : Object.values(data.activeTasks);
-         console.log(tasks);
-         setTasks(tasks);
-      } catch (error) {
-         console.error(error);
-         setIsActive(false); // Set inactive on error
-      } finally {
-         setIsLoading(false);
-         setIsActive(true); // Set active on successful fetch // End loading
-      }
-   };
+  const handleNormalTaskFinish = async (userId, taskId) => {
+    const requestPayload = encryptData(JSON.stringify({ userId, taskId }));
+    try {
+      const response = await apiClient.post("taskControl", requestPayload);
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Normal görev tamamlandı yanıtı:", data);
+    } catch (error) {
+      console.error("Normal görev tamamlama hatası:", error);
+    }
+  };
 
-   const handleNormalTaskFinish = async (userId, taskId) => {
-      try {
-         const response = await apiClient.post(
-            "taskControl",
-            encryptData(JSON.stringify({ userId: userId, taskId: taskId }))
-         );
-         const data = JSON.parse(decryptData(response.data));
-         const res = JSON.parse(decryptData(response));
-         console.log(res);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         // Set inactive on error
-      }
-   };
-   const handleBuyBooster = async (userId, boosterId) => {
-      try {
-         const response = await apiClient.post(
-            "buyBooster",
-            encryptData(
-               JSON.stringify({ userId: userId, boosterId: boosterId })
-            )
-         );
-         const data = JSON.parse(decryptData(response.data));
-         const res = JSON.parse(decryptData(response));
-         console.log(res);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         // Set inactive on error
-      }
-   };
-   const handleTelegramTaskFinish = async (userId, taskId, groupName) => {
-      try {
-         const response = await apiClient.post(
-            "taskControl",
-            encryptData(
-               JSON.stringify({
-                  userId: userId,
-                  taskId: taskId,
-                  groupName: groupName,
-               })
-            )
-         );
-         const data = JSON.parse(decryptData(response.data));
-         const res = JSON.parse(decryptData(response));
-         console.log(res);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         // Set inactive on error
-      }
-   };
-   const handleWalletTaskFinish = async (userId, taskId, walletAddress) => {
-      try {
-         const response = await apiClient.post(
-            "taskControl",
-            encryptData(
-               JSON.stringify({
-                  userId: userId,
-                  taskId: taskId,
-                  walletAddress: walletAddress,
-               })
-            )
-         );
-         const data = JSON.parse(decryptData(response.data));
-         const res = JSON.parse(decryptData(response));
-         console.log(res);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         // Set inactive on error
-      }
-   };
+  const handleBuyBooster = async (userId, boosterId) => {
+    try {
+      const response = await apiClient.post(
+        "buyBooster",
+        encryptData(JSON.stringify({ userId, boosterId }))
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Booster satın alma yanıtı:", data);
+    } catch (error) {
+      console.error("Booster satın alma hatası:", error);
+    }
+  };
 
-   const handleFlipCoin = async (userId) => {
-      try {
-         const response = await apiClient.post(
-            "updateGameData",
-            encryptData(JSON.stringify({ userId: userId }))
-         );
-         const data = JSON.parse(decryptData(response.data));
-         const res = JSON.parse(decryptData(response));
-         console.log(res);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         // Set inactive on error
-      }
-   };
-   //    const logout = () => {
-   //       try {
-   //          localStorage.removeItem(TOKEN_KEY);
-   //          localStorage.removeItem(USER_KEY);
-   //          axios.defaults.headers.common["Authorization"] = "";
-   //          setAuthState({
-   //             token: null,
-   //             authenticated: false,
-   //             user: {
-   //                username: "",
-   //                id: null,
-   //                balance: 0,
-   //             },
-   //          });
-   //       } catch (e) {
-   //          console.error(e);
-   //       }
-   //    };
-   useEffect(() => {
-      console.log("Try login");
-      loginOrCreateWithUsername(1234567891);
-   }, []);
-   const value = {
-      onLoginOrCreate: loginOrCreateWithUsername,
-      handleNormalTaskFinish,
-      handleWalletTaskFinish,
-      handleTelegramTaskFinish,
-      handleFlipCoin,
-      authState,
-      tasks,
-      eventState,
-      communityState,
-      gameState,
-      isLoading, // Expose isLoading
-      isActive, // Expose isActive
-   };
+  const handleTelegramTaskFinish = async (userId, taskId, groupName) => {
+    try {
+      const response = await apiClient.post(
+        "taskControl",
+        encryptData(JSON.stringify({ userId, taskId, groupName }))
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Telegram görevi tamamlandı yanıtı:", data);
+    } catch (error) {
+      console.error("Telegram görevi tamamlama hatası:", error);
+    }
+  };
 
-   return (
-      <AuthContext.Provider value={value}>
-         {isLoading ? <Loader /> : children}
-      </AuthContext.Provider>
-   );
+  const handleWalletTaskFinish = async (userId, taskId, walletAddress) => {
+    try {
+      const response = await apiClient.post(
+        "taskControl",
+        encryptData(JSON.stringify({ userId, taskId, walletAddress }))
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Cüzdan görevi tamamlandı yanıtı:", data);
+    } catch (error) {
+      console.error("Cüzdan görevi tamamlama hatası:", error);
+    }
+  };
+
+  const handleFlipCoin = async (userId) => {
+    try {
+      const response = await apiClient.post(
+        "updateGameData",
+        encryptData(JSON.stringify({ userId }))
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Yazı-tura oyunu yanıtı:", data);
+    } catch (error) {
+      console.error("Yazı-tura oyunu hatası:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Login denemesi");
+    loginOrCreateWithUsername(1234567891);
+  }, []);
+
+  const value = {
+    onLoginOrCreate: loginOrCreateWithUsername,
+    handleNormalTaskFinish,
+    handleWalletTaskFinish,
+    handleTelegramTaskFinish,
+    handleFlipCoin,
+    handleBuyBooster,
+    authState,
+    tasks,
+    eventState,
+    communityState,
+    gameState,
+    isLoading,
+    isActive,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {isLoading ? <Loader /> : children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
