@@ -94,7 +94,9 @@ export const AuthProvider = ({ children }) => {
       try {
          const response = await apiClient.post(
             "buyBooster",
-            encryptData(JSON.stringify({ userId, boosterId }))
+            encryptData(
+               JSON.stringify({ userId: userId, boosterId: boosterId })
+            )
          );
          const data = JSON.parse(decryptData(response.data));
          console.log("Booster satın alma yanıtı:", data);
@@ -130,7 +132,10 @@ export const AuthProvider = ({ children }) => {
    };
 
    const handleFlipCoin = async (userId) => {
-      const requestPayload = encryptData(JSON.stringify({ userId }));
+      const requestPayload = encryptData(
+         JSON.stringify({ userId: Number(userId) })
+      );
+
       try {
          const response = await apiClient.post(
             "updateGameData",
