@@ -2,13 +2,13 @@ import { useAuth } from "@/app/context/UserContext";
 import React from "react";
 
 const TasksList = ({ tasks, handleInputTaskOpen }) => {
-   const { handleNormalTaskFinish, completedOneTime, completedDaily } =
+   const { handleNormalTaskFinish, completedOneTime, completedDaily, userId } =
       useAuth();
    const handleInputTask = () => {
       handleInputTaskOpen();
    };
    const handleTaskFinish = (taskId) => {
-      handleNormalTaskFinish(1234567891, taskId);
+      handleNormalTaskFinish(userId, taskId);
       setTimeout(() => {
          window.location.reload();
       }, 1500);

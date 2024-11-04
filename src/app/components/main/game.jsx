@@ -30,7 +30,7 @@ const Game = () => {
       const userChoice = choice;
 
       // Retrieve backend flip result
-      const result = await handleFlipCoin(1234567891); // true or false from backend
+      const result = await handleFlipCoin(userId); // true or false from backend
       const isUserChoiceCorrect = result > 0;
 
       // Determine the final display based on backend result and user's choice

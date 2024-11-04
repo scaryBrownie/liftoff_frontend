@@ -25,7 +25,7 @@ const Bonus = () => {
       setIsInputTaskOpen(true);
    };
    const handleWalletTask = () => {
-      handleWalletTaskFinish(1234567891, "connectWallet", walletInput);
+      handleWalletTaskFinish(userId, "connectWallet", walletInput);
       setTimeout(() => {
          window.location.reload();
       }, 1000);
