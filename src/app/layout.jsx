@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
    return (
       <html lang="en">
          <body
-            className={`layout bg-black w-screen h-screen max-w-[500px] max-h-[1200px] mb-[10px] flex flex-col`}
+            className={`layout bg-black w-screen h-screen max-w-[500px] max-h-[1200px] mb-[10px] flex flex-col relative`}
          >
             <AuthProvider>
                <div className="main-part h-full flex-1 w-full pb-[80px]">
