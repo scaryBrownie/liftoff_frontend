@@ -6,6 +6,10 @@
    font-family: "Bobby";
    src: url("./fonts/BobbyJonesSoft.otf");
 }
+@font-face {
+   font-family: "BobbyRough";
+   src: url("./fonts/BobbyRoughSoft.ttf");
+}
 
 @font-face {
    font-family: "Poppins";

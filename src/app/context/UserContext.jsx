@@ -4,8 +4,6 @@ import axios from "axios";
 import { decryptData, encryptData } from "../tools/encryptdecrypt";
 import Loader from "../components/common/loader";
 
-const TOKEN_KEY = "my-jwt";
-const USER_KEY = "user-data";
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -23,6 +21,7 @@ export const AuthProvider = ({ children }) => {
          username: null,
       },
    });
+   const [balance, setBalance] = useState(0);
    const [tasks, setTasks] = useState({});
    const [eventState, setEventState] = useState([]);
    const [communityState, setCommunityState] = useState([]);
@@ -66,10 +65,13 @@ export const AuthProvider = ({ children }) => {
             ? data.activeTasks
             : Object.values(data.activeTasks);
          setTasks(tasks);
+
          const dailyBoosters = Array.isArray(data.boosters)
             ? data.activeTasks
             : Object.values(data.boosters);
          setDailyBoosters(dailyBoosters);
+
+         setBalance(data.points);
       } catch (error) {
          console.error("Login hatası:", error);
          setIsActive(false);
@@ -84,6 +86,7 @@ export const AuthProvider = ({ children }) => {
       try {
          const response = await apiClient.post("taskControl", requestPayload);
          const data = JSON.parse(decryptData(response.data));
+         addBalance(data.taskDetails.pointsEarned);
          console.log("Normal görev tamamlandı yanıtı:", data);
       } catch (error) {
          console.error("Normal görev tamamlama hatası:", error);
@@ -117,7 +120,12 @@ export const AuthProvider = ({ children }) => {
          console.error("Telegram görevi tamamlama hatası:", error);
       }
    };
-
+   const addBalance = (points) => {
+      setBalance(balance + points);
+   };
+   const changeBalance = (points) => {
+      setBalance(points);
+   };
    const handleWalletTaskFinish = async (userId, taskId, walletAddress) => {
       try {
          const response = await apiClient.post(
@@ -142,6 +150,7 @@ export const AuthProvider = ({ children }) => {
             requestPayload
          );
          const data = JSON.parse(decryptData(response.data));
+         changeBalance(data.currentPoints);
          console.log("Yazı-tura oyunu yanıtı:", data);
       } catch (error) {
          console.error("Yazı-tura oyunu hatası:", error);
@@ -160,9 +169,11 @@ export const AuthProvider = ({ children }) => {
       handleTelegramTaskFinish,
       handleFlipCoin,
       handleBuyBooster,
+      addBalance,
       authState,
       tasks,
       dailyBoosters,
+      balance,
       eventState,
       communityState,
       gameState,

@@ -4,8 +4,9 @@ import MoonImg from "./assets/main/moon.png";
 import BalanceDisplayMain from "./components/main/balanceDisplayMain";
 import { useState } from "react";
 import Game from "./components/main/game";
+import { useAuth } from "./context/UserContext";
 export default function Home() {
-   const [balance, setBalance] = useState(8167.5);
+   const { balance } = useAuth();
    return (
       <div className="w-full h-full flex flex-col relative overflow-x-hidden overflow-hidden">
          <div className="absolute moon-image left-0 top-0">

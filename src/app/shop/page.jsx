@@ -8,7 +8,7 @@ import Back from "../assets/coin/head.png";
 import { useAuth } from "../context/UserContext";
 
 const Shop = () => {
-   const [balance, setBalance] = useState(8175.5);
+   const { balance } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
    const { dailyBoosters } = useAuth();
    const [powerBoosters, setPowerBoosters] = useState([
@@ -92,7 +92,10 @@ const Shop = () => {
                </div>
                <div className="daily-boosters flex w-full gap-4 mt-5">
                   {dailyBoosters.map((booster) => (
-                     <div className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative">
+                     <div
+                        className="daily-boost-item w-full h-[78px] rounded-lg bg-coffee flex-1 flex items-center justify-center relative"
+                        key={booster.multiplier}
+                     >
                         <Image
                            src={Front}
                            alt="front"

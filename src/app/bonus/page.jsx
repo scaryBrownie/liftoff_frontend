@@ -6,6 +6,7 @@ import { useAuth } from "../context/UserContext";
 
 const Bonus = () => {
    const [availableBalance, setAvailableBalance] = useState(8156.5);
+   const { balance } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
    const { tasks } = useAuth();
 
@@ -34,7 +35,7 @@ const Bonus = () => {
             <h5 className="text-orange text-[38px] ">COMPLETE BONUS TASKS</h5>
          </div>
          <div className="w-full h-auto flex items-center mt-4">
-            <AvailableLiftoff liftoff={availableBalance} />
+            <AvailableLiftoff liftoff={balance} />
          </div>
          <div className="tasks-selector w-full flex items-center gap-6 mt-6">
             <button
