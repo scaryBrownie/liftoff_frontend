@@ -5,13 +5,13 @@ import { useAuth } from "../context/UserContext";
 
 const Invite = () => {
    const { userRefId } = useAuth();
-
+   const url = "https://t.me/liftoff_game_bot/app?startapp=" + userRefId;
    const handleInviteClick = () => {
       const tele = window.Telegram?.WebApp;
       if (tele) {
          tele.openTelegramLink(
             `https://t.me/share/url?url=${encodeURIComponent(
-               userRefId
+               url
             )}&text=Join%20using%20my%20referral%20code`
          );
       } else {
@@ -24,8 +24,8 @@ const Invite = () => {
          if (!document.hasFocus()) {
             window.focus(); // Ensure the document is focused
          }
-         await navigator.clipboard.writeText(userRefId);
-         console.log("Text copied to clipboard:", userRefId);
+         await navigator.clipboard.writeText(url);
+         console.log("Text copied to clipboard:", url);
       } catch (error) {
          console.error("Failed to copy text:", error);
       }

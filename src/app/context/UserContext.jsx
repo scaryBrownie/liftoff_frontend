@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }) => {
          "Content-Type": "application/json",
          "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
       },
+      withCredentials: true,
    });
 
    const loginOrCreateWithUsername = async (userId) => {
@@ -59,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       try {
          const response = await apiClient.post(
             "login",
-            encryptData(JSON.stringify({ userId }))
+            encryptData(JSON.stringify({ userId: Number(userId) }))
          );
          const data = JSON.parse(decryptData(response.data));
          console.log("Gelen login yaniti:", data);
@@ -85,7 +86,9 @@ export const AuthProvider = ({ children }) => {
    };
 
    const handleNormalTaskFinish = async (userId, taskId) => {
-      const requestPayload = encryptData(JSON.stringify({ userId, taskId }));
+      const requestPayload = encryptData(
+         JSON.stringify({ userId: Number(userId), taskId: taskId.toString() })
+      );
       try {
          const response = await apiClient.post("taskControl", requestPayload);
          const data = JSON.parse(decryptData(response.data));
@@ -101,7 +104,10 @@ export const AuthProvider = ({ children }) => {
          const response = await apiClient.post(
             "buyBooster",
             encryptData(
-               JSON.stringify({ userId: userId, boosterId: boosterId })
+               JSON.stringify({
+                  userId: Number(userId),
+                  boosterId: boosterId.toString(),
+               })
             )
          );
          const data = JSON.parse(decryptData(response.data));
@@ -115,7 +121,13 @@ export const AuthProvider = ({ children }) => {
       try {
          const response = await apiClient.post(
             "taskControl",
-            encryptData(JSON.stringify({ userId, taskId, groupName }))
+            encryptData(
+               JSON.stringify({
+                  userId: Number(userId),
+                  taskId: taskId.toString(),
+                  groupName: groupName.toString(),
+               })
+            )
          );
          const data = JSON.parse(decryptData(response.data));
          console.log("Telegram görevi tamamlandı yanıtı:", data);
@@ -133,7 +145,13 @@ export const AuthProvider = ({ children }) => {
       try {
          const response = await apiClient.post(
             "taskControl",
-            encryptData(JSON.stringify({ userId, taskId, walletAddress }))
+            encryptData(
+               JSON.stringify({
+                  userId: Number(userId),
+                  taskId: taskId.toString(),
+                  walletAddress: walletAddress.toString(),
+               })
+            )
          );
          const data = JSON.parse(decryptData(response.data));
          console.log("Cüzdan görevi tamamlandı yanıtı:", data);
