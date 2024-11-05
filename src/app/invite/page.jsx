@@ -1,10 +1,26 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CopyIcon from "../assets/icons/copy-icon";
 import { useAuth } from "../context/UserContext";
 
 const Invite = () => {
-   const { userRefId } = useAuth();
+   const { userId, getReferenceData } = useAuth();
+   const [userRefId, setUserRefId] = useState("");
+   const handleGetReferenceData = async () => {
+      try {
+         const data = await getReferenceData(1234567891);
+         console.log(data);
+         console.log(data.referenceDatas.referenceId);
+         setUserRefId(data.referenceDatas.referenceId);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
+   useEffect(() => {
+      handleGetReferenceData();
+   }, [userId]);
+
    const url = "https://t.me/liftoff_game_bot/app?startapp=" + userRefId;
    const handleInviteClick = () => {
       const tele = window.Telegram?.WebApp;

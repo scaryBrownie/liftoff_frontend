@@ -1,9 +1,13 @@
 import { useAuth } from "@/app/context/UserContext";
 import React from "react";
 
-const TasksList = ({ tasks, handleInputTaskOpen }) => {
-   const { handleNormalTaskFinish, completedOneTime, completedDaily, userId } =
-      useAuth();
+const TasksList = ({
+   tasks,
+   handleInputTaskOpen,
+   completedOneTime,
+   completedDaily,
+}) => {
+   const { handleNormalTaskFinish, userId } = useAuth();
    const handleInputTask = () => {
       handleInputTaskOpen();
    };

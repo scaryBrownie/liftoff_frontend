@@ -8,10 +8,23 @@ import CloseIcon from "../assets/icons/close-icon";
 const Bonus = () => {
    const [availableBalance, setAvailableBalance] = useState(8156.5);
    const { balance, handleWalletTaskFinish, userId, getTasks } = useAuth();
+
    const handleGetTasks = async () => {
       try {
          const data = await getTasks(1234567891);
          console.log(data);
+         setTasks(data.activeTasks);
+
+         const dailyBoosterKeys = Array.isArray(data.dailyCompletions)
+            ? data.dailyCompletions
+            : Object.keys(data.dailyCompletions);
+         setCompletedDaily(dailyBoosterKeys);
+         const oneTimeCompletions = Array.isArray(data.oneTimeCompletions)
+            ? data.oneTimeCompletions
+            : Object.keys(data.oneTimeCompletions);
+         setCompletedOneTime(dailyBoosterKeys);
+         console.log(data.activeTasks);
+         setTaskSelection(0);
       } catch (error) {
          console.log(error);
       }
@@ -19,12 +32,15 @@ const Bonus = () => {
    useEffect(() => {
       handleGetTasks();
    }, []);
+   const [tasks, setTasks] = useState([]);
+   const [filteredTasks, setFilteredTasks] = useState(tasks);
+
+   const [completedOneTime, setCompletedOneTime] = useState([]);
+   const [completedDaily, setCompletedDaily] = useState([]);
 
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
 
    const [walletInput, setWalletInput] = useState("");
-   const [tasks, setTasks] = useState({});
-   const [filteredTasks, setFilteredTasks] = useState(tasks);
 
    const [isInputTaskOpen, setIsInputTaskOpen] = useState(false);
 
@@ -54,7 +70,7 @@ const Bonus = () => {
 
    useEffect(() => {
       handleTasks();
-   }, [taskSelection]);
+   }, [tasks, taskSelection]);
 
    return (
       <>
@@ -152,10 +168,14 @@ const Bonus = () => {
                </button>
             </div>
             <div className="tasks w-full mt-5 pb-[10px] overflow-y-auto">
-               {/* <TasksList
-                  tasks={filteredTasks}
-                  handleInputTaskOpen={handleInputTaskOpen}
-               /> */}
+               {filteredTasks && (
+                  <TasksList
+                     tasks={filteredTasks}
+                     handleInputTaskOpen={handleInputTaskOpen}
+                     completedDaily={completedDaily}
+                     completedOneTime={completedOneTime}
+                  />
+               )}
             </div>
          </div>
       </>

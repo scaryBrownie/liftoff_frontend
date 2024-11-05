@@ -39,12 +39,11 @@ export const AuthProvider = ({ children }) => {
    const [currentStreak, setCurrentStreak] = useState();
 
    const apiClient = axios.create({
-      baseURL: "https://rrg1mwdqj5.execute-api.us-east-1.amazonaws.com/prod/",
+      baseURL: "https://xg3agmyklj.execute-api.us-east-1.amazonaws.com/produ/",
       headers: {
          "Content-Type": "application/json",
          "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
       },
-      withCredentials: true,
    });
 
    const loginOrCreateWithUsername = async (userId) => {
@@ -103,8 +102,55 @@ export const AuthProvider = ({ children }) => {
          const response = await apiClient.get(`getTasks?userId=1234567891`);
          const data = JSON.parse(decryptData(response.data));
          console.log("Tasklar geldi: ", data);
+         return data;
       } catch (error) {
          console.error("Tasklar gelmedi:", error);
+      }
+   };
+
+   const getBooster = async (userId) => {
+      try {
+         const response = await apiClient.get(`getBooster?userId=1234567891`);
+         const data = JSON.parse(decryptData(response.data));
+         console.log("Booster geldi: ", data);
+         return data;
+      } catch (error) {
+         console.error("Booster gelmedi:", error);
+      }
+   };
+
+   const getPoints = async (userId) => {
+      try {
+         const response = await apiClient.get(`getPoints?userId=1234567891`);
+         const data = JSON.parse(decryptData(response.data));
+         console.log("Points geldi: ", data);
+         return data;
+      } catch (error) {
+         console.error("Points gelmedi:", error);
+      }
+   };
+
+   const getStreaks = async (userId) => {
+      try {
+         const response = await apiClient.get(
+            `getStreaksMultiplers?userId=1234567891`
+         );
+         const data = JSON.parse(decryptData(response.data));
+         console.log("Points geldi: ", data);
+         return data;
+      } catch (error) {
+         console.error("Points gelmedi:", error);
+      }
+   };
+
+   const getReferenceData = async (userId) => {
+      try {
+         const response = await apiClient.get(`getReference?userId=1234567891`);
+         const data = JSON.parse(decryptData(response.data));
+         console.log("Points geldi: ", data);
+         return data;
+      } catch (error) {
+         console.error("Points gelmedi:", error);
       }
    };
 
@@ -258,6 +304,10 @@ export const AuthProvider = ({ children }) => {
       handleBuyBooster,
       addBalance,
       getTasks,
+      getBooster,
+      getPoints,
+      getStreaks,
+      getReferenceData,
       completedOneTime,
       completedDaily,
       currentStreak,

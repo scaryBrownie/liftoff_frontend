@@ -6,13 +6,12 @@ import Rocket from "../../assets/main/rocket.png";
 import Image from "next/image";
 import { useAuth } from "@/app/context/UserContext";
 
-const Game = () => {
+const Game = ({ currentStreak }) => {
    const [coinFlip, setCoinFlip] = useState("");
    const [showAnimation, setShowAnimation] = useState(false);
    const [isFlipping, setIsFlipping] = useState(false);
    const [buttonNum, setButtonNum] = useState(0);
-   const { handleFlipCoin, addBalance, userId, currentStreak, balance } =
-      useAuth();
+   const { handleFlipCoin, addBalance, userId, balance } = useAuth();
    const [coinFlipData, setCoinFlipData] = useState();
 
    const handleFlip = async (choice, buttonNum) => {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShopBalance from "../components/shop/shopBalance";
 import SkinSlider from "../components/shop/skinSlider";
 import Image from "next/image";
@@ -10,13 +10,32 @@ import { useAuth } from "../context/UserContext";
 const Shop = () => {
    const { balance } = useAuth();
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
-   const {
-      dailyBoosters,
-      handleBuyBooster,
-      dailyBoosterKeys,
-      boosterData,
-      userId,
-   } = useAuth();
+   const { handleBuyBooster, userId, getBooster } = useAuth();
+   const [dailyBoosters, setDailyBoosters] = useState([]);
+   const [boosterData, setBoosterData] = useState([]);
+
+   const handleGetBoosts = async () => {
+      try {
+         const data = await getBooster(1234567891);
+         console.log(data.boosters);
+
+         const dailyBoosters = Array.isArray(data.boosters)
+            ? data.dailyBoosters
+            : Object.values(data.boosters);
+         const boosterData = Array.isArray(data.boosterDatas)
+            ? data.boosterDatas
+            : Object.values(data.boosterDatas);
+         setBoosterData(boosterData);
+
+         setDailyBoosters(dailyBoosters);
+         console.log(data.boosterDatas);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+   useEffect(() => {
+      handleGetBoosts();
+   }, [userId]);
    const [powerBoosters, setPowerBoosters] = useState([
       {
          boosterName: "Sleep & Earn",
@@ -124,58 +143,59 @@ const Shop = () => {
                      </div>
                   )}
 
-                  {dailyBoosters.map((booster, index) => {
-                     const haveBooster = boosterData[0];
-                     console.log(boosterData);
-                     console.log("Have Booster: " + haveBooster);
-                     let boosterHave = 10;
-                     if (haveBooster) {
-                        if (index === 0 && boosterData[1] === "BOOST_1_5X") {
-                           boosterHave = 0;
+                  {dailyBoosters &&
+                     dailyBoosters.map((booster, index) => {
+                        const haveBooster = boosterData[0];
+                        console.log(boosterData);
+                        console.log("Have Booster: " + haveBooster);
+                        let boosterHave = 10;
+                        if (haveBooster) {
+                           if (index === 0 && boosterData[1] === "BOOST_1_5X") {
+                              boosterHave = 0;
+                           }
+                           if (index === 1 && boosterData[1] === "BOOST_2X") {
+                              boosterHave = 1;
+                           }
+                           if (index === 2 && boosterData[1] === "BOOST_3X") {
+                              boosterHave = 2;
+                           }
                         }
-                        if (index === 1 && boosterData[1] === "BOOST_2X") {
-                           boosterHave = 1;
-                        }
-                        if (index === 2 && boosterData[1] === "BOOST_3X") {
-                           boosterHave = 2;
-                        }
-                     }
-                     const divClassName = `daily-boost-item w-full h-[78px] rounded-lg flex-1 bg-coffee flex items-center justify-center relative cursor-pointer ${
-                        haveBooster
-                           ? boosterHave === index
-                              ? "bg-red"
-                              : "bg-opacity-40"
-                           : ""
-                     }`;
-                     return (
-                        <div
-                           className={divClassName}
-                           onClick={() => {
-                              if (index === 0) {
-                                 buyBoosterFirst();
-                              }
-                              if (index === 1) {
-                                 buyBoosterSecond();
-                              }
-                              if (index === 2) {
-                                 buyBoosterThird();
-                              }
-                           }}
-                           key={booster.multiplier}
-                        >
-                           <Image
-                              src={Front}
-                              alt="front"
-                              className="h-[50px] w-auto -ml-2"
-                           />
-                           <div className="absolute right-[6px] top-1">
-                              <h5 className="text-[16px]">
-                                 {booster.multiplier}X
-                              </h5>
+                        const divClassName = `daily-boost-item w-full h-[78px] rounded-lg flex-1 bg-coffee flex items-center justify-center relative cursor-pointer ${
+                           haveBooster
+                              ? boosterHave === index
+                                 ? "bg-red"
+                                 : "bg-opacity-40"
+                              : ""
+                        }`;
+                        return (
+                           <div
+                              className={divClassName}
+                              onClick={() => {
+                                 if (index === 0) {
+                                    buyBoosterFirst();
+                                 }
+                                 if (index === 1) {
+                                    buyBoosterSecond();
+                                 }
+                                 if (index === 2) {
+                                    buyBoosterThird();
+                                 }
+                              }}
+                              key={booster.multiplier}
+                           >
+                              <Image
+                                 src={Front}
+                                 alt="front"
+                                 className="h-[50px] w-auto -ml-2"
+                              />
+                              <div className="absolute right-[6px] top-1">
+                                 <h5 className="text-[16px]">
+                                    {booster.multiplier}X
+                                 </h5>
+                              </div>
                            </div>
-                        </div>
-                     );
-                  })}
+                        );
+                     })}
                </div>
             </div>
             <div className="power-boosters w-full flex flex-col pb-[10px]">
