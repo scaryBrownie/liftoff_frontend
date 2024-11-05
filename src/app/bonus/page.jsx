@@ -7,11 +7,23 @@ import CloseIcon from "../assets/icons/close-icon";
 
 const Bonus = () => {
    const [availableBalance, setAvailableBalance] = useState(8156.5);
-   const { balance, handleWalletTaskFinish, tasks, userId } = useAuth();
+   const { balance, handleWalletTaskFinish, userId, getTasks } = useAuth();
+   const handleGetTasks = async () => {
+      try {
+         const data = await getTasks(1234567891);
+         console.log(data);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+   useEffect(() => {
+      handleGetTasks();
+   }, []);
+
    const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
 
    const [walletInput, setWalletInput] = useState("");
-
+   const [tasks, setTasks] = useState({});
    const [filteredTasks, setFilteredTasks] = useState(tasks);
 
    const [isInputTaskOpen, setIsInputTaskOpen] = useState(false);
@@ -140,10 +152,10 @@ const Bonus = () => {
                </button>
             </div>
             <div className="tasks w-full mt-5 pb-[10px] overflow-y-auto">
-               <TasksList
+               {/* <TasksList
                   tasks={filteredTasks}
                   handleInputTaskOpen={handleInputTaskOpen}
-               />
+               /> */}
             </div>
          </div>
       </>

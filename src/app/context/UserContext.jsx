@@ -39,8 +39,7 @@ export const AuthProvider = ({ children }) => {
    const [currentStreak, setCurrentStreak] = useState();
 
    const apiClient = axios.create({
-      baseURL:
-         "https://im511387y1.execute-api.us-east-1.amazonaws.com/prod_Liftoff/",
+      baseURL: "https://rrg1mwdqj5.execute-api.us-east-1.amazonaws.com/prod/",
       headers: {
          "Content-Type": "application/json",
          "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
@@ -96,6 +95,16 @@ export const AuthProvider = ({ children }) => {
       } finally {
          setIsLoading(false);
          setIsActive(true);
+      }
+   };
+
+   const getTasks = async (userId) => {
+      try {
+         const response = await apiClient.get(`getTasks?userId=1234567891`);
+         const data = JSON.parse(decryptData(response.data));
+         console.log("Tasklar geldi: ", data);
+      } catch (error) {
+         console.error("Tasklar gelmedi:", error);
       }
    };
 
@@ -231,13 +240,14 @@ export const AuthProvider = ({ children }) => {
    useEffect(() => {
       console.log("Telegram Initialize");
       initializeTelegram();
+      setIsLoading(false);
    }, []);
 
-   useEffect(() => {
-      if (userId === "") return;
-      console.log("Login denemesi");
-      loginOrCreateWithUsername(userId);
-   }, [userId]);
+   //    useEffect(() => {
+   //       if (userId === "") return;
+   //       console.log("Login denemesi");
+   //       loginOrCreateWithUsername(userId);
+   //    }, [userId]);
 
    const value = {
       onLoginOrCreate: loginOrCreateWithUsername,
@@ -247,6 +257,7 @@ export const AuthProvider = ({ children }) => {
       handleFlipCoin,
       handleBuyBooster,
       addBalance,
+      getTasks,
       completedOneTime,
       completedDaily,
       currentStreak,
