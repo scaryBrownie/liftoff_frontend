@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isActive, setIsActive] = useState(false);
 
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState();
   const [refId, setRefId] = useState("");
 
   const [token, setToken] = useState("");
@@ -236,7 +236,8 @@ export const AuthProvider = ({ children }) => {
       var chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
       console.log(chatId);
       var referenceId = window.Telegram.WebApp.initDataUnsafe.start_param;
-      setUserId(chatId);
+      setUserId(Number(chatId));
+
       setRefId(referenceId);
       if (referenceId != null) {
         console.log("ReferenceId", referenceId);
@@ -251,7 +252,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleFlipCoin = async (userId) => {
+  const handleFlipCoin = async () => {
     const requestPayload = encryptData(
       JSON.stringify({ userId: Number(userId) })
     );
