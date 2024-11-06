@@ -248,10 +248,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      setUserId(1234567891);
-      console.log("local");
-      console.log(userId);
-      console.log("Telegram not available");
+      // setUserId(1234567891);
+      // console.log("local");
+      // console.log(userId);
+      // console.log("Telegram not available");
     }
   };
 
@@ -273,9 +273,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (userId !== undefined) return;
     console.log("Telegram Initialize");
     initializeTelegram();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (userId === undefined) return;
