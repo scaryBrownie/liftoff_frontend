@@ -272,13 +272,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     console.log("Telegram Initialize");
     initializeTelegram();
-    setIsLoading(false);
   }, []);
 
   useEffect(() => {
     if (userId === "") return;
     console.log("Login denemesi");
     loginOrCreateWithUsername(userId);
+    setIsLoading(false);
   }, [userId]);
 
   const value = {
