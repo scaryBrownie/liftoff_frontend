@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [dailyBoosters, setDailyBoosters] = useState({});
 
   const [balance, setBalance] = useState(0);
-
+  const [streak, setStreak] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isActive, setIsActive] = useState(false);
 
@@ -42,6 +42,11 @@ export const AuthProvider = ({ children }) => {
     exposedHeaders: "x-amzn-remapped-x-amzn-remapped-authorization",
   });
 
+  useEffect(() => {
+    if (token) {
+      apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+    }
+  }, [token]);
   const loginOrCreateWithUsername = async (userId) => {
     setIsLoading(true);
     try {
@@ -64,6 +69,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", token);
         setToken(token);
         setAuthenticated(true);
+        getPoints();
+        getStreaks();
         console.log("Token saved: " + token);
       }
 
@@ -103,6 +110,7 @@ export const AuthProvider = ({ children }) => {
       const response = await apiClient.get(`getPoints?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Points geldi: ", data);
+      setBalance(data.point);
       return data;
     } catch (error) {
       console.log("Points gelmedi:", error);
@@ -116,6 +124,7 @@ export const AuthProvider = ({ children }) => {
       );
       const data = JSON.parse(decryptData(response.data));
       console.log("Streaks geldi: ", data);
+      setStreak(data.currentStreak);
       return data;
     } catch (error) {
       console.log("Streaks gelmedi:", error);
@@ -246,13 +255,14 @@ export const AuthProvider = ({ children }) => {
     const requestPayload = encryptData(
       JSON.stringify({ userId: Number(userId) })
     );
-
     try {
       const response = await apiClient.post("updateGameData", requestPayload);
       const data = JSON.parse(decryptData(response.data));
+      const res = [data.earnedPoints, data.currentStreak];
       //    changeBalance(data.currentPoints);
       console.log("Yazı-tura oyunu yanıtı:", data);
-      return data.earnedPoints;
+      setStreak(data.currentStreak);
+      return res;
     } catch (error) {
       console.error("Yazı-tura oyunu hatası:", error);
     }
@@ -290,6 +300,7 @@ export const AuthProvider = ({ children }) => {
     balance,
     isLoading,
     isActive,
+    streak,
   };
 
   return (

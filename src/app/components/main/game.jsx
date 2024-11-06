@@ -30,6 +30,7 @@ const Game = ({ currentStreak }) => {
     // Retrieve backend flip result
     const result = await handleFlipCoin(userId); // true or false from backend
     const isUserChoiceCorrect = result > 0;
+    console.log("Result: " + result);
 
     // Determine the final display based on backend result and user's choice
     const isHeads =
@@ -44,11 +45,11 @@ const Game = ({ currentStreak }) => {
     setTimeout(() => {
       // Start points animation only after the flip has resolved
       setShowAnimation(true);
-      setCoinFlipData(result);
+      setCoinFlipData(result[0]);
 
       // Reset states after animation completes
       setTimeout(() => {
-        addBalance(result);
+        addBalance(result[0]);
         setShowAnimation(false);
         setIsFlipping(false); // Unlock flip for the next attempt
         setButtonNum(0);
