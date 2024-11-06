@@ -3,73 +3,73 @@
 @tailwind utilities;
 
 @font-face {
-   font-family: "Bobby";
-   src: url("./fonts/BobbyJonesSoft.otf");
+  font-family: "Bobby";
+  src: url("./fonts/BobbyJonesSoft.otf");
 }
 @font-face {
-   font-family: "BobbyRough";
-   src: url("./fonts/BobbyRoughSoft.ttf");
+  font-family: "BobbyRough";
+  src: url("./fonts/BobbyRoughSoft.ttf");
 }
 
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsBlack.ttf") format("truetype");
-   font-weight: 900;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsBlack.ttf") format("truetype");
+  font-weight: 900;
 }
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsExtraBold.ttf") format("truetype");
-   font-weight: 800;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsExtraBold.ttf") format("truetype");
+  font-weight: 800;
 }
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsBold.ttf") format("truetype");
-   font-weight: 700;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsBold.ttf") format("truetype");
+  font-weight: 700;
 }
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsSemiBold.ttf") format("truetype");
-   font-weight: 600;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsSemiBold.ttf") format("truetype");
+  font-weight: 600;
 }
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsMedium.ttf") format("truetype");
-   font-weight: 500;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsMedium.ttf") format("truetype");
+  font-weight: 500;
 }
 @font-face {
-   font-family: "Poppins";
-   src: url("./fonts/PoppinsRegular.ttf") format("truetype");
-   font-weight: 400;
+  font-family: "Poppins";
+  src: url("./fonts/PoppinsRegular.ttf") format("truetype");
+  font-weight: 400;
 }
 
 * {
-   font-family: "Bobby";
-   color: white;
+  font-family: "Bobby";
+  color: white;
 }
 .layout {
-   overflow: hidden !important;
+  overflow: hidden !important;
 }
 
 ::-webkit-scrollbar {
-   width: 5px;
-   border-radius: 4px;
+  width: 5px;
+  border-radius: 4px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-   background: #28272799;
-   border-radius: 3px;
+  background: #28272799;
+  border-radius: 3px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-   background: rgb(38, 38, 38);
-   border-radius: 3px;
+  background: rgb(38, 38, 38);
+  border-radius: 3px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-   background: black;
+  background: black;
 }
 /*COINFLIP*/
 
@@ -78,102 +78,102 @@
 /* CoinFlip.module.css */
 
 .coin {
-   position: relative;
-   margin: 0 auto;
-   width: 200px;
-   height: 200px;
-   cursor: pointer;
-   transition: transform 1s ease-in;
-   transform-style: preserve-3d;
+  position: relative;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 1s ease-in;
+  transform-style: preserve-3d;
 }
 
 .coin div {
-   width: 100%;
-   height: 100%;
-   border-radius: 50%;
-   box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3),
-      0 12px 20px -10px rgba(0, 0, 0, 0.4);
-   position: absolute;
-   backface-visibility: hidden;
-   background-size: cover;
-   background-position: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3),
+    0 12px 20px -10px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center;
 }
 
 .sideA {
-   background-image: url("./assets/coin/head.png"); /* Use your actual image path */
-   z-index: 100;
+  background-image: url("./assets/coin/head.png"); /* Use your actual image path */
+  z-index: 100;
 }
 
 .sideB {
-   background-image: url("./assets/coin/tail.png"); /* Use your actual image path */
-   transform: rotateY(-180deg);
+  background-image: url("./assets/coin/tail.png"); /* Use your actual image path */
+  transform: rotateY(-180deg);
 }
 
 .heads {
-   animation: flipHeads 3s ease-out forwards;
+  animation: flipHeads 3s ease-out forwards;
 }
 
 .tails {
-   animation: flipTails 3s ease-out forwards;
+  animation: flipTails 3s ease-out forwards;
 }
 
 @keyframes flipHeads {
-   from {
-      transform: rotateY(0);
-   }
-   to {
-      transform: rotateY(1800deg);
-   }
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(1800deg);
+  }
 }
 
 @keyframes flipTails {
-   from {
-      transform: rotateY(0);
-   }
-   to {
-      transform: rotateY(1980deg);
-   }
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(1980deg);
+  }
 }
 
 .heads-tails-shadow {
-   box-shadow: 0px 4px 0px 0px #f5ed5b;
+  box-shadow: 0px 4px 0px 0px #f5ed5b;
 }
 
 /* HTML: <div class="loader"></div> */
 .loader {
-   width: 50px;
-   padding: 8px;
-   aspect-ratio: 1;
-   border-radius: 50%;
-   background: #dc9304;
-   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
-   -webkit-mask: var(--_m);
-   mask: var(--_m);
-   -webkit-mask-composite: source-out;
-   mask-composite: subtract;
-   animation: l3 1s infinite linear;
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #dc9304;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
 }
 @keyframes l3 {
-   to {
-      transform: rotate(1turn);
-   }
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 @keyframes fadeUp {
-   0% {
-      opacity: 1;
-      transform: translateY(0);
-   }
-   100% {
-      opacity: 0;
-      transform: translateY(-60px); /* Adjust this value as needed */
-   }
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px); /* Adjust this value as needed */
+  }
 }
 
 .earned-points {
-   opacity: 0;
+  opacity: 0;
 }
 
 .fade-up {
-   animation: fadeUp 2s ease-out;
+  animation: fadeUp 1s ease-out;
 }

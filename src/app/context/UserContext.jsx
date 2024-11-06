@@ -11,32 +11,15 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [dailyBoosters, setDailyBoosters] = useState({});
-  const [authState, setAuthState] = useState({
-    authenticated: false,
-    user: {
-      userId: 0,
-      points: 0,
-      farmCounter: 0,
-      attemptsLeft: 0,
-      referenceId: "",
-      username: null,
-    },
-  });
+
   const [balance, setBalance] = useState(0);
-  const [tasks, setTasks] = useState({});
 
   const [isLoading, setIsLoading] = useState(true);
   const [isActive, setIsActive] = useState(false);
 
   const [userId, setUserId] = useState("");
   const [refId, setRefId] = useState("");
-  const [userRefId, setUserRefId] = useState("");
-  const [dailyBoosterKeys, setDailyBoosterKeys] = useState({});
-  const [boosterData, setBoosterData] = useState({});
-  const [completedOneTime, setCompletedOneTime] = useState({});
-  const [completedDaily, setCompletedDaily] = useState({});
 
-  const [currentStreak, setCurrentStreak] = useState();
   const [token, setToken] = useState("");
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -95,7 +78,7 @@ export const AuthProvider = ({ children }) => {
 
   const getTasks = async () => {
     try {
-      const response = await apiClient.get(`getTasks?userId=${userId}}`);
+      const response = await apiClient.get(`getTasks?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Tasklar geldi: ", data);
       return data;
@@ -117,7 +100,7 @@ export const AuthProvider = ({ children }) => {
 
   const getPoints = async () => {
     try {
-      const response = await apiClient.get(`getPoints?userId=${userId}}`);
+      const response = await apiClient.get(`getPoints?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Points geldi: ", data);
       return data;
@@ -132,10 +115,10 @@ export const AuthProvider = ({ children }) => {
         `getStreaksMultiplers?userId=${userId}`
       );
       const data = JSON.parse(decryptData(response.data));
-      console.log("Points geldi: ", data);
+      console.log("Streaks geldi: ", data);
       return data;
     } catch (error) {
-      console.log("Points gelmedi:", error);
+      console.log("Streaks gelmedi:", error);
     }
   };
 
@@ -143,10 +126,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiClient.get(`getReference?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
-      console.log("Points geldi: ", data);
+      console.log("Reference geldi: ", data);
       return data;
     } catch (error) {
-      console.log("Points gelmedi:", error);
+      console.log("Reference gelmedi:", error);
     }
   };
 
@@ -301,17 +284,9 @@ export const AuthProvider = ({ children }) => {
     getStreaks,
     getReferenceData,
     authenticated,
-    completedOneTime,
-    completedDaily,
-    currentStreak,
-    authState,
-    boosterData,
-    tasks,
     refId,
-    userRefId,
     userId,
     dailyBoosters,
-    dailyBoosterKeys,
     balance,
     isLoading,
     isActive,

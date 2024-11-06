@@ -52,8 +52,8 @@ const Game = ({ currentStreak }) => {
         setShowAnimation(false);
         setIsFlipping(false); // Unlock flip for the next attempt
         setButtonNum(0);
-      }, 2000); // Points animation duration
-    }, 2500); // Delay for flip animation to complete
+      }, 1000); // Points animation duration
+    }, 1200); // Delay for flip animation to complete
   };
 
   // 0 none 1 heads 2 tails
