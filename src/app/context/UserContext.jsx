@@ -157,7 +157,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiClient.post("taskControl", requestPayload);
       const data = JSON.parse(decryptData(response.data));
-      addBalance(data.taskDetails.pointsEarned);
       console.log("Normal görev tamamlandı yanıtı:", data);
       window.location.reload();
     } catch (error) {

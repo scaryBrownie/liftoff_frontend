@@ -34,14 +34,16 @@ const Bonus = () => {
       const oneTimeCompletions = Array.isArray(data.oneTimeCompletions)
         ? data.oneTimeCompletions
         : Object.keys(data.oneTimeCompletions);
-      setCompletedOneTime(dailyBoosterKeys);
-      console.log(data.activeTasks);
+      setCompletedOneTime(oneTimeCompletions);
+      console.log(data.oneTimeCompletions);
+      console.log(data.dailyCompletions);
       setTaskSelection(0);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
+    if (!authenticated) return;
     handleGetTasks();
     handleGetPoints();
   }, [authenticated, userId]);
@@ -173,7 +175,7 @@ const Bonus = () => {
           </button>
         </div>
         <div className="tasks w-full mt-5 pb-[10px] overflow-y-auto">
-          {filteredTasks && (
+          {filteredTasks && tasks.length > 0 && (
             <TasksList
               tasks={filteredTasks}
               handleInputTaskOpen={handleInputTaskOpen}
