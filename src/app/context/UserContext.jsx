@@ -93,9 +93,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getTasks = async (userId) => {
+  const getTasks = async () => {
     try {
-      const response = await apiClient.get(`getTasks?userId=1234567891`);
+      const response = await apiClient.get(`getTasks?userId=${userId}}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Tasklar geldi: ", data);
       return data;
@@ -104,9 +104,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getBooster = async (userId) => {
+  const getBooster = async () => {
     try {
-      const response = await apiClient.get(`getBooster?userId=1234567891`);
+      const response = await apiClient.get(`getBooster?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Booster geldi: ", data);
       return data;
@@ -115,9 +115,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getPoints = async (userId) => {
+  const getPoints = async () => {
     try {
-      const response = await apiClient.get(`getPoints?userId=1234567891`);
+      const response = await apiClient.get(`getPoints?userId=${userId}}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Points geldi: ", data);
       return data;
@@ -126,10 +126,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getStreaks = async (userId) => {
+  const getStreaks = async () => {
     try {
       const response = await apiClient.get(
-        `getStreaksMultiplers?userId=1234567891`
+        `getStreaksMultiplers?userId=${userId}`
       );
       const data = JSON.parse(decryptData(response.data));
       console.log("Points geldi: ", data);
@@ -139,9 +139,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getReferenceData = async (userId) => {
+  const getReferenceData = async () => {
     try {
-      const response = await apiClient.get(`getReference?userId=1234567891`);
+      const response = await apiClient.get(`getReference?userId=${userId}`);
       const data = JSON.parse(decryptData(response.data));
       console.log("Points geldi: ", data);
       return data;
