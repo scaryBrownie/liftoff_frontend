@@ -11,12 +11,20 @@ const Game = ({ currentStreak }) => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
   const [buttonNum, setButtonNum] = useState(0);
-  const { handleFlipCoin, addBalance, userId } = useAuth();
+  const { handleFlipCoin, addBalance, userId, balance } = useAuth();
   const [coinFlipData, setCoinFlipData] = useState();
+  const [isBalanceZero, setIsBalanceZero] = useState(false);
 
   const handleFlip = async (choice, buttonNum) => {
-    if (isFlipping) return; // Prevent re-clicks during flip
+    if (isFlipping) return;
 
+    if (balance <= 25) {
+      setIsBalanceZero(true);
+      setTimeout(() => {
+        setIsBalanceZero(false);
+      }, 1000);
+      return; // Prevent re-clicks during flip
+    }
     setIsFlipping(true); // Lock flip at start
     setButtonNum(buttonNum);
 
@@ -61,6 +69,13 @@ const Game = ({ currentStreak }) => {
   return (
     <div className="game-part w-full h-full flex flex-col">
       <div className="coin-part w-full flex-[9] h-full  flex items-center justify-center relative">
+        {isBalanceZero && (
+          <div className="absolute glare-container bottom-12 left-0 w-full flex items-center justify-center z-[300]">
+            <h5 className="text-xl px-4 py-2 bg-red rounded-lg">
+              You dont have enough balance
+            </h5>
+          </div>
+        )}
         <div className="absolute glare-container left-4 top-8">
           <Image src={Glare} alt="glare" className="w-[18px] h-auto" />
         </div>

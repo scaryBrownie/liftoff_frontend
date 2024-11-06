@@ -39,7 +39,7 @@ const Shop = () => {
     try {
       const data = await getPoints();
       console.log(data);
-      console.log("BARAN");
+
       setBalance(data.point);
     } catch (error) {
       console.log(error);

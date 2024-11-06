@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
   const loginOrCreateWithUsername = async (userId) => {
     setIsLoading(true);
-    console.log("BARAN2");
     try {
       const response = await loginApiClient.post(
         "login",
@@ -74,13 +73,13 @@ export const AuthProvider = ({ children }) => {
         getPoints();
         getStreaks();
         console.log("Token saved: " + token);
+        setIsLoading(false);
       }
 
       console.log("Token:", token);
     } catch (error) {
       setIsActive(false);
     } finally {
-      setIsLoading(false);
       setIsActive(true);
     }
   };
@@ -282,7 +281,6 @@ export const AuthProvider = ({ children }) => {
     if (userId === undefined) return;
     console.log("Login denemesi");
     loginOrCreateWithUsername(userId);
-    setIsLoading(false);
   }, [userId]);
 
   const value = {
