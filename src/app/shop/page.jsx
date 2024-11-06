@@ -17,7 +17,7 @@ const Shop = () => {
 
   const handleGetBoosts = async () => {
     try {
-      const data = await getBooster(1234567891);
+      const data = await getBooster();
       console.log(data.boosters);
 
       const dailyBoosters = Array.isArray(data.boosters)
@@ -37,7 +37,7 @@ const Shop = () => {
 
   const handleGetPoints = async () => {
     try {
-      const data = await getPoints(1234567891);
+      const data = await getPoints();
       console.log(data);
       console.log("BARAN");
       setBalance(data.point);

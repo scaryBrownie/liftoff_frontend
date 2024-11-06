@@ -13,7 +13,7 @@ const Bonus = () => {
   const [balance, setBalance] = useState(0);
   const handleGetPoints = async () => {
     try {
-      const data = await getPoints(1234567891);
+      const data = await getPoints();
       console.log(data);
       setBalance(data.point);
     } catch (error) {
@@ -23,7 +23,7 @@ const Bonus = () => {
 
   const handleGetTasks = async () => {
     try {
-      const data = await getTasks(1234567891);
+      const data = await getTasks();
       console.log(data);
       setTasks(data.activeTasks);
 

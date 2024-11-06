@@ -8,7 +8,7 @@ const Invite = () => {
   const [userRefId, setUserRefId] = useState("");
   const handleGetReferenceData = async () => {
     try {
-      const data = await getReferenceData(1234567891);
+      const data = await getReferenceData();
       console.log(data);
       console.log(data.referenceDatas.referenceId);
       setUserRefId(data.referenceDatas.referenceId);

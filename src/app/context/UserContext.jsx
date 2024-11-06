@@ -142,7 +142,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleNormalTaskFinish = async (userId, taskId) => {
+  const handleNormalTaskFinish = async (taskId) => {
     const requestPayload = encryptData(
       JSON.stringify({ userId: Number(userId), taskId: taskId.toString() })
     );
@@ -156,7 +156,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleBuyBooster = async (userId, boosterId) => {
+  const handleBuyBooster = async (boosterId) => {
     try {
       const response = await apiClient.post(
         "buyBooster",
@@ -177,7 +177,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleTelegramTaskFinish = async (userId, taskId, groupName) => {
+  const handleTelegramTaskFinish = async (taskId, groupName) => {
     try {
       const response = await apiClient.post(
         "taskControl",
@@ -201,7 +201,7 @@ export const AuthProvider = ({ children }) => {
   const changeBalance = (points) => {
     setBalance(points);
   };
-  const handleWalletTaskFinish = async (userId, taskId, walletAddress) => {
+  const handleWalletTaskFinish = async (taskId, walletAddress) => {
     try {
       const response = await apiClient.post(
         "taskControl",
