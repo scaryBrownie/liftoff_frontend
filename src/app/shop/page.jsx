@@ -72,19 +72,19 @@ const Shop = () => {
     },
   ]);
   const buyBoosterFirst = () => {
-    handleBuyBooster(userId, "BOOST_1_5X");
+    handleBuyBooster("BOOST_1_5X");
     setTimeout(() => {
       window.location.reload();
     }, 1500);
   };
   const buyBoosterSecond = () => {
-    handleBuyBooster(userId, "BOOST_2X");
+    handleBuyBooster("BOOST_2X");
     setTimeout(() => {
       window.location.reload();
     }, 1500);
   };
   const buyBoosterThird = () => {
-    handleBuyBooster(userId, "BOOST_3X");
+    handleBuyBooster("BOOST_3X");
     setTimeout(() => {
       window.location.reload();
     }, 1500);

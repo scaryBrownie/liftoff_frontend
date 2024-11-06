@@ -68,7 +68,7 @@ const Bonus = () => {
     setIsInputTaskOpen(true);
   };
   const handleWalletTask = () => {
-    handleWalletTaskFinish(userId, "connectWallet", walletInput);
+    handleWalletTaskFinish("connectWallet", walletInput);
   };
   // Define the handleTasks function to filter tasks based on taskSelection
   const handleTasks = () => {

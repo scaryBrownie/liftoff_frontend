@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
   const loginOrCreateWithUsername = async (userId) => {
     setIsLoading(true);
+    console.log("BARAN2");
     try {
       const response = await loginApiClient.post(
         "login",
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }) => {
       //    console.log("Gelen login yaniti:", data);
       //    const authHeader =
       //       response.headers["x-amzn-remapped-x-amzn-remapped-authorization"];
+      console.log(data);
       const token = data.token;
 
       if (token) {
@@ -146,6 +148,7 @@ export const AuthProvider = ({ children }) => {
     const requestPayload = encryptData(
       JSON.stringify({ userId: Number(userId), taskId: taskId.toString() })
     );
+    console.log(userId);
     try {
       const response = await apiClient.post("taskControl", requestPayload);
       const data = JSON.parse(decryptData(response.data));
@@ -245,10 +248,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      // setUserId(1234567891);
-      // console.log("local");
-      // console.log(userId);
-      // console.log("Telegram not available");
+      setUserId(1234567891);
+      console.log("local");
+      console.log(userId);
+      console.log("Telegram not available");
     }
   };
 
@@ -275,7 +278,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (userId === "") return;
+    if (userId === undefined) return;
     console.log("Login denemesi");
     loginOrCreateWithUsername(userId);
     setIsLoading(false);
