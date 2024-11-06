@@ -37,8 +37,20 @@ export const AuthProvider = ({ children }) => {
    const [completedDaily, setCompletedDaily] = useState({});
 
    const [currentStreak, setCurrentStreak] = useState();
+   const [token, setToken] = useState("");
+
+   const [authenticated, setAuthenticated] = useState(false);
 
    const apiClient = axios.create({
+      baseURL: "https://xg3agmyklj.execute-api.us-east-1.amazonaws.com/produ/",
+      headers: {
+         "Content-Type": "application/json",
+         "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
+         Authorization: `Bearer ${token}`,
+      },
+   });
+
+   const loginApiClient = axios.create({
       baseURL: "https://xg3agmyklj.execute-api.us-east-1.amazonaws.com/produ/",
       headers: {
          "Content-Type": "application/json",
@@ -49,45 +61,31 @@ export const AuthProvider = ({ children }) => {
    const loginOrCreateWithUsername = async (userId) => {
       setIsLoading(true);
       try {
-         const response = await apiClient.post(
+         const response = await loginApiClient.post(
             "login",
-            encryptData(JSON.stringify({ userId: Number(userId) }))
+            encryptData(
+               JSON.stringify({
+                  userId: Number(userId),
+                  // initData: window.Telegram.WebApp.initData,
+               })
+            )
          );
+
          const data = JSON.parse(decryptData(response.data));
          console.log("Gelen login yaniti:", data);
+         const token = response.headers["Authorization"]?.split(" ")[1];
+         if (response.headers["Authorization"]?.split(" ")[0] !== "Bearer") {
+            console.log("Bearer değil");
+         }
+         if (token) {
+            localStorage.setItem("token", token);
+            setToken(token); // Update token state
 
-         const tasks = Array.isArray(data.activeTasks)
-            ? data.activeTasks
-            : Object.values(data.activeTasks);
-         setTasks(tasks);
-
-         const dailyBoosters = Array.isArray(data.boosters)
-            ? data.dailyBoosters
-            : Object.values(data.boosters);
-         setDailyBoosters(dailyBoosters);
-
-         const dailyBoosterKeys = Array.isArray(data.boosters)
-            ? data.dailyBoosters
-            : Object.keys(data.boosters);
-         setDailyBoosterKeys(dailyBoosterKeys);
-
-         const boosterData = Array.isArray(data.boosterDatas)
-            ? data.boosterDatas
-            : Object.values(data.boosterDatas);
-         setBoosterData(boosterData);
-
-         const oneTimeCompletions = Array.isArray(data.oneTimeCompletions)
-            ? data.oneTimeCompletions
-            : Object.keys(data.oneTimeCompletions);
-         setCompletedOneTime(oneTimeCompletions);
-
-         const dailyCompletions = Array.isArray(data.dailyCompletions)
-            ? data.dailyCompletions
-            : Object.keys(data.dailyCompletions);
-         setCompletedDaily(dailyCompletions);
-         setCurrentStreak(data.currentStreak);
-         setUserRefId(data.referenceDatas.referenceId);
-         setBalance(data.points);
+            console.log("Token saved:", token);
+            setAuthenticated(true);
+         } else {
+            console.log("Authorization token not found in response headers.");
+         }
       } catch (error) {
          console.error("Login hatası:", error);
          setIsActive(false);
@@ -289,11 +287,11 @@ export const AuthProvider = ({ children }) => {
       setIsLoading(false);
    }, []);
 
-   //    useEffect(() => {
-   //       if (userId === "") return;
-   //       console.log("Login denemesi");
-   //       loginOrCreateWithUsername(userId);
-   //    }, [userId]);
+   useEffect(() => {
+      if (userId === "") return;
+      console.log("Login denemesi");
+      loginOrCreateWithUsername(userId);
+   }, [userId]);
 
    const value = {
       onLoginOrCreate: loginOrCreateWithUsername,
@@ -308,6 +306,7 @@ export const AuthProvider = ({ children }) => {
       getPoints,
       getStreaks,
       getReferenceData,
+      authenticated,
       completedOneTime,
       completedDaily,
       currentStreak,

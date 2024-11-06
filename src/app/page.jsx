@@ -7,7 +7,7 @@ import Game from "./components/main/game";
 import { useAuth } from "./context/UserContext";
 export default function Home() {
    const [currentStreak, setCurrentStreak] = useState(0);
-   const { getPoints, userId, getStreaks } = useAuth();
+   const { getPoints, userId, getStreaks, authenticated } = useAuth();
    const [balance, setBalance] = useState(0);
    const handleGetPoints = async () => {
       try {
@@ -29,9 +29,10 @@ export default function Home() {
       }
    };
    useEffect(() => {
+      if (!authenticated) return;
       handleGetPoints();
       handleGetStreak();
-   }, [userId]);
+   }, [userId, authenticated]);
 
    return (
       <div className="w-full h-full flex flex-col relative overflow-x-hidden overflow-hidden">
