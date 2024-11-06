@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
       apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
   }, [token]);
-  const loginOrCreateWithUsername = async (userId) => {
+  const loginOrCreateWithUsername = async (userId, referenceIdUser) => {
     setIsLoading(true);
     try {
       const response = await loginApiClient.post(
@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
         encryptData(
           JSON.stringify({
             userId: Number(userId),
+            referenceIdUser: refId,
             // initData: window.Telegram.WebApp.initData,
           })
         )
@@ -252,10 +253,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      setUserId(1234567891);
-      console.log("local");
-      console.log(userId);
-      console.log("Telegram not available");
+      // setUserId(1234567891);
+      // console.log("local");
+      // console.log(userId);
+      // console.log("Telegram not available");
     }
   };
 
