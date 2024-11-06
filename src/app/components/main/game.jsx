@@ -29,8 +29,8 @@ const Game = ({ currentStreak }) => {
 
     // Retrieve backend flip result
     const result = await handleFlipCoin(userId); // true or false from backend
-    const isUserChoiceCorrect = result > 0;
-    console.log("Result: " + result);
+    const isUserChoiceCorrect = result[0] > 0;
+    console.log("Result: " + result[0]);
 
     // Determine the final display based on backend result and user's choice
     const isHeads =
