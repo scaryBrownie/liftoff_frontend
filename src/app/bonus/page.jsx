@@ -68,8 +68,11 @@ const Bonus = () => {
     }
     setIsInputTaskOpen(true);
   };
-  const handleWalletTask = () => {
-    handleWalletTaskFinish("connectWallet", walletInput);
+  const handleWalletTask = async () => {
+    const res = await handleWalletTaskFinish("connectWallet", walletInput);
+    if (res) {
+      window.location.reload();
+    }
   };
   // Define the handleTasks function to filter tasks based on taskSelection
   const handleTasks = () => {

@@ -11,8 +11,11 @@ const TasksList = ({
   const handleInputTask = () => {
     handleInputTaskOpen();
   };
-  const handleTaskFinish = (taskId) => {
-    handleNormalTaskFinish(taskId);
+  const handleTaskFinish = async (taskId) => {
+    const res = await handleNormalTaskFinish(taskId);
+    if (res) {
+      window.location.reload();
+    }
   };
   return (
     <div className="tasks-list w-full h-full flex flex-col gap-4  pr-2">

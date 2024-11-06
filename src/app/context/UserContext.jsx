@@ -152,9 +152,10 @@ export const AuthProvider = ({ children }) => {
       const response = await apiClient.post("taskControl", requestPayload);
       const data = JSON.parse(decryptData(response.data));
       console.log("Normal görev tamamlandı yanıtı:", data);
-      window.location.reload();
+      return true;
     } catch (error) {
       console.log("Normal görev tamamlama hatası:", error);
+      return false;
     }
   };
 
@@ -174,8 +175,10 @@ export const AuthProvider = ({ children }) => {
         changeBalance(data.remainingPoints);
       }
       console.log("Booster satın alma yanıtı:", data);
+      return true;
     } catch (error) {
       console.log("Booster satın alma hatası:", error);
+      return false;
     }
   };
 
@@ -193,8 +196,10 @@ export const AuthProvider = ({ children }) => {
       );
       const data = JSON.parse(decryptData(response.data));
       console.log("Telegram görevi tamamlandı yanıtı:", data);
+      return true;
     } catch (error) {
       console.log("Telegram görevi tamamlama hatası:", error);
+      return false;
     }
   };
   const addBalance = (points) => {
@@ -217,10 +222,10 @@ export const AuthProvider = ({ children }) => {
       );
       const data = JSON.parse(decryptData(response.data));
       console.log("Cüzdan görevi tamamlandı yanıtı:", data);
-
-      window.location.reload();
+      return true;
     } catch (error) {
       console.log("Cüzdan görevi tamamlama hatası:", error);
+      return true;
     }
   };
 

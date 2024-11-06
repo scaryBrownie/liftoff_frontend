@@ -71,23 +71,23 @@ const Shop = () => {
       id: 2,
     },
   ]);
-  const buyBoosterFirst = () => {
-    handleBuyBooster("BOOST_1_5X");
-    setTimeout(() => {
+  const buyBoosterFirst = async () => {
+    const res = await handleBuyBooster("BOOST_1_5X");
+    if (res) {
       window.location.reload();
-    }, 1500);
+    }
   };
-  const buyBoosterSecond = () => {
-    handleBuyBooster("BOOST_2X");
-    setTimeout(() => {
+  const buyBoosterSecond = async () => {
+    const res = await handleBuyBooster("BOOST_2X");
+    if (res) {
       window.location.reload();
-    }, 1500);
+    }
   };
-  const buyBoosterThird = () => {
-    handleBuyBooster("BOOST_3X");
-    setTimeout(() => {
+  const buyBoosterThird = async () => {
+    const res = await handleBuyBooster("BOOST_3X");
+    if (res) {
       window.location.reload();
-    }, 1500);
+    }
   };
   return (
     <div className="shop w-full h-full flex flex-col pt-4 overflow-y-auto mb-8">
