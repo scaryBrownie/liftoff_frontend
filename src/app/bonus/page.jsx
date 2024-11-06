@@ -44,6 +44,7 @@ const Bonus = () => {
   };
   useEffect(() => {
     if (!authenticated) return;
+    if (userId === undefined || userId === "") return;
     handleGetTasks();
     handleGetPoints();
   }, [authenticated, userId]);

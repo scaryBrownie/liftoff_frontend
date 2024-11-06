@@ -18,7 +18,7 @@ const Game = ({ currentStreak }) => {
   const handleFlip = async (choice, buttonNum) => {
     if (isFlipping) return;
 
-    if (balance <= 25) {
+    if (balance < 25) {
       setIsBalanceZero(true);
       setTimeout(() => {
         setIsBalanceZero(false);
