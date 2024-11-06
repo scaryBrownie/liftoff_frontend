@@ -243,8 +243,8 @@ export const AuthProvider = ({ children }) => {
       var chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
       console.log(chatId);
       var referenceId = window.Telegram.WebApp.initDataUnsafe.start_param;
-      setUserId(Number(chatId));
-
+      // setUserId(Number(chatId));
+      setUserId(5607928548);
       setRefId(referenceId);
       if (referenceId != null) {
         console.log("ReferenceId", referenceId);
