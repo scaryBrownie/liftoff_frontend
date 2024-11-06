@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
 
   const apiClient = axios.create({
-    baseURL: "https://xg3agmyklj.execute-api.us-east-1.amazonaws.com/produ/",
+    baseURL: "https://5x4effmq11.execute-api.us-east-1.amazonaws.com/prod/",
     headers: {
       "Content-Type": "application/json",
       "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const loginApiClient = axios.create({
-    baseURL: "https://xg3agmyklj.execute-api.us-east-1.amazonaws.com/produ/",
+    baseURL: "https://5x4effmq11.execute-api.us-east-1.amazonaws.com/prod/",
     headers: {
       "Content-Type": "application/json",
       "x-api-key": "Jloivnboa34Fz64VRv0uk9dKSNTgD1gZ4Dr3RJE4",
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Tasklar geldi: ", data);
       return data;
     } catch (error) {
-      console.error("Tasklar gelmedi:", error);
+      console.log("Tasklar gelmedi:", error);
     }
   };
 
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Booster geldi: ", data);
       return data;
     } catch (error) {
-      console.error("Booster gelmedi:", error);
+      console.log("Booster gelmedi:", error);
     }
   };
 
@@ -122,7 +122,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Points geldi: ", data);
       return data;
     } catch (error) {
-      console.error("Points gelmedi:", error);
+      console.log("Points gelmedi:", error);
     }
   };
 
@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Points geldi: ", data);
       return data;
     } catch (error) {
-      console.error("Points gelmedi:", error);
+      console.log("Points gelmedi:", error);
     }
   };
 
@@ -146,7 +146,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Points geldi: ", data);
       return data;
     } catch (error) {
-      console.error("Points gelmedi:", error);
+      console.log("Points gelmedi:", error);
     }
   };
 
@@ -161,7 +161,7 @@ export const AuthProvider = ({ children }) => {
       console.log("Normal görev tamamlandı yanıtı:", data);
       window.location.reload();
     } catch (error) {
-      console.error("Normal görev tamamlama hatası:", error);
+      console.log("Normal görev tamamlama hatası:", error);
     }
   };
 
@@ -182,7 +182,7 @@ export const AuthProvider = ({ children }) => {
       }
       console.log("Booster satın alma yanıtı:", data);
     } catch (error) {
-      console.error("Booster satın alma hatası:", error);
+      console.log("Booster satın alma hatası:", error);
     }
   };
 
@@ -201,7 +201,7 @@ export const AuthProvider = ({ children }) => {
       const data = JSON.parse(decryptData(response.data));
       console.log("Telegram görevi tamamlandı yanıtı:", data);
     } catch (error) {
-      console.error("Telegram görevi tamamlama hatası:", error);
+      console.log("Telegram görevi tamamlama hatası:", error);
     }
   };
   const addBalance = (points) => {
@@ -227,7 +227,7 @@ export const AuthProvider = ({ children }) => {
 
       window.location.reload();
     } catch (error) {
-      console.error("Cüzdan görevi tamamlama hatası:", error);
+      console.log("Cüzdan görevi tamamlama hatası:", error);
     }
   };
 
