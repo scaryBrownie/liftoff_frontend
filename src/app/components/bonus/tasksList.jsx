@@ -14,7 +14,7 @@ const TasksList = ({
   const handleTaskFinish = async (taskId) => {
     const res = await handleNormalTaskFinish(taskId);
     if (res) {
-      window.location.reload();
+      window.location.href = window.location.href;
     }
   };
   return (

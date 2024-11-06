@@ -243,8 +243,8 @@ export const AuthProvider = ({ children }) => {
       var chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
       console.log(chatId);
       var referenceId = window.Telegram.WebApp.initDataUnsafe.start_param;
-      // setUserId(Number(chatId));
-      setUserId(5607928548);
+      setUserId(Number(chatId));
+
       setRefId(referenceId);
       if (referenceId != null) {
         console.log("ReferenceId", referenceId);
@@ -252,10 +252,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      // setUserId(1234567891);
-      // console.log("local");
-      // console.log(userId);
-      // console.log("Telegram not available");
+      setUserId(1234567891);
+      console.log("local");
+      console.log(userId);
+      console.log("Telegram not available");
     }
   };
 

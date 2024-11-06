@@ -74,19 +74,19 @@ const Shop = () => {
   const buyBoosterFirst = async () => {
     const res = await handleBuyBooster("BOOST_1_5X");
     if (res) {
-      window.location.reload();
+      window.location.href = window.location.href;
     }
   };
   const buyBoosterSecond = async () => {
     const res = await handleBuyBooster("BOOST_2X");
     if (res) {
-      window.location.reload();
+      window.location.href = window.location.href;
     }
   };
   const buyBoosterThird = async () => {
     const res = await handleBuyBooster("BOOST_3X");
     if (res) {
-      window.location.reload();
+      window.location.href = window.location.href;
     }
   };
   return (

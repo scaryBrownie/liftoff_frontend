@@ -71,7 +71,7 @@ const Bonus = () => {
   const handleWalletTask = async () => {
     const res = await handleWalletTaskFinish("connectWallet", walletInput);
     if (res) {
-      window.location.reload();
+      window.location.href = window.location.href;
     }
   };
   // Define the handleTasks function to filter tasks based on taskSelection
