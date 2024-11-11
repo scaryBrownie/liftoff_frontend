@@ -44,7 +44,7 @@ export default function Home() {
               </div>
             </div>
             <div className="game-container w-full h-full flex-1 flex flex-col  relative">
-              <Game currentStreak={streak} />
+              <Game />
             </div>
           </div>
         </div>

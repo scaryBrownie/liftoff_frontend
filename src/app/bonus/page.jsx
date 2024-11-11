@@ -104,7 +104,7 @@ const Bonus = () => {
           <div className="input-task absolute w-full h-[360px] bg-black bottom-0 left-0 border-t-4 border-t-orange flex flex-col px-6 z-[999] pb-[90px]">
             <div className="top flex justify-between items-center">
               <div className="title-part w-full flex items-center mt-6">
-                <h5 className="text-2xl">CONNECT YOUR WALLET</h5>
+                <h5 className="text-2xl">CONNECT YOUR SOL WALLET</h5>
               </div>
               <div className="close-btn-container h-auto flex items-center mt-6">
                 <button
@@ -117,7 +117,7 @@ const Bonus = () => {
               </div>
             </div>
             <div className="input-part w-full flex flex-col mt-8 gap-[2px]">
-              <h5 className="text-[14px] pl-1">Wallet Address</h5>
+              <h5 className="text-[14px] pl-1">SOL Wallet Address</h5>
               <input
                 type="text"
                 value={walletInput}

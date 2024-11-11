@@ -6,7 +6,7 @@ import Rocket from "../../assets/main/rocket.png";
 import Image from "next/image";
 import { useAuth } from "@/app/context/UserContext";
 
-const Game = ({ currentStreak }) => {
+const Game = () => {
   const [coinFlip, setCoinFlip] = useState("");
   const [showAnimation, setShowAnimation] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
@@ -14,6 +14,7 @@ const Game = ({ currentStreak }) => {
   const { handleFlipCoin, addBalance, userId, balance } = useAuth();
   const [coinFlipData, setCoinFlipData] = useState();
   const [isBalanceZero, setIsBalanceZero] = useState(false);
+  const [streak, setStreak] = useState(0);
 
   const handleFlip = async (choice, buttonNum) => {
     if (isFlipping) return;
@@ -60,11 +61,11 @@ const Game = ({ currentStreak }) => {
         setCoinFlipData(result[0]);
 
         // Unlock flip for the next attempt
-
         setTimeout(() => {
-          setShowAnimation(false);
           addBalance(result[0]);
-        }, 1500);
+          setShowAnimation(false);
+          setStreak(result[1]);
+        }, 2000);
         setButtonNum(0);
       }, 1200);
       // Points animation duration
@@ -156,11 +157,11 @@ const Game = ({ currentStreak }) => {
         </div>
         <div
           className={`streak w-full items-center justify-center mt-3 relative z-[1000] ${
-            currentStreak >= 2 ? "flex" : "hidden"
+            streak >= 2 ? "flex" : "hidden"
           }`}
         >
           <div className="px-4 py-[6px] border-yellow border-2 heads-tails-shadow rounded-lg">
-            <h5 className="text-[26px] text-yellow">STREAK {currentStreak}X</h5>
+            <h5 className="text-[26px] text-yellow">STREAK {streak}X</h5>
           </div>
         </div>
         <div className="absolute rocket-container right-8 bottom-3">

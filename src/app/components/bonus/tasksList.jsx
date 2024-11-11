@@ -1,4 +1,6 @@
 import { useAuth } from "@/app/context/UserContext";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const TasksList = ({
@@ -11,10 +13,11 @@ const TasksList = ({
   const handleInputTask = () => {
     handleInputTaskOpen();
   };
-  const handleTaskFinish = async (taskId) => {
+  const router = useRouter();
+  const handleTaskFinish = async (taskId, taskLink) => {
     const res = await handleNormalTaskFinish(taskId);
     if (res) {
-      window.location.href = window.location.href;
+      router.push(taskLink);
     }
   };
   return (
@@ -28,8 +31,10 @@ const TasksList = ({
             className="task-item h-[52px] border border-white rounded-lg flex-shrink-0 flex items-center justify-between px-2"
             key={task.id}
           >
-            <div className="left h-full flex items-center flex-1 gap-5">
-              <div className="icon-container w-5 h-5"></div>
+            <div className="left h-full flex items-center flex-1 gap-3">
+              <div className="icon-container w-5 h-5 ml-1">
+                <Image src={task.logo} width={20} height={20} alt="task_icon" />
+              </div>
               <div className="texts-container flex flex-col h-full justify-center">
                 <h5 className="text-[12px] font-[Poppins] font-semibold">
                   {task.title}
@@ -64,7 +69,7 @@ const TasksList = ({
               ) : (
                 <button
                   className="flex items-center justify-center bg-orange w-[54px] h-[28px] rounded-lg"
-                  onClick={() => handleTaskFinish(task.id)}
+                  onClick={() => handleTaskFinish(task.id, task.link)}
                 >
                   <h5 className="text-black text-[16px]">START</h5>
                 </button>

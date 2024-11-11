@@ -164,6 +164,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-60px); /* Adjust this value as needed */
@@ -176,6 +177,7 @@
 
 .fade-up {
   animation: fadeUp 1s ease-out;
+  animation-delay: 0.7s;
 }
 
 .hexagon {

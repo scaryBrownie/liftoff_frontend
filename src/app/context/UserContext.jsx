@@ -281,7 +281,6 @@ export const AuthProvider = ({ children }) => {
       const res = [data.earnedPoints, data.currentStreak];
       //    changeBalance(data.currentPoints);
       console.log("Yazı-tura oyunu yanıtı:", data);
-      setStreak(data.currentStreak);
       return res;
     } catch (error) {
       console.error("Yazı-tura oyunu hatası:", error);
@@ -321,7 +320,6 @@ export const AuthProvider = ({ children }) => {
     balance,
     isLoading,
     isActive,
-    streak,
   };
 
   return (
