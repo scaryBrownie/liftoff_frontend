@@ -18,6 +18,7 @@ const TasksList = ({
     const res = await handleNormalTaskFinish(taskId);
     if (res) {
       window.open(taskLink, "_blank");
+      window.location.href = window.location.href;
     }
   };
   return (
