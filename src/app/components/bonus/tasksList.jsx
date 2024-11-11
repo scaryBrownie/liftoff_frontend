@@ -17,7 +17,7 @@ const TasksList = ({
   const handleTaskFinish = async (taskId, taskLink) => {
     const res = await handleNormalTaskFinish(taskId);
     if (res) {
-      router.push(taskLink);
+      window.open(taskLink, "_blank");
     }
   };
   return (
