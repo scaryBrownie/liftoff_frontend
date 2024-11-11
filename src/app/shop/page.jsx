@@ -94,7 +94,7 @@ const Shop = () => {
       <div className="balance-container w-full flex items-center justify-end px-6">
         <ShopBalance balance={balance} />
       </div>
-      <div className="customize-coin w-full flex flex-col">
+      {/* <div className="customize-coin w-full flex flex-col">
         <div className="title flex items-center w-full mt-7 px-6">
           <h5 className="text-orange text-[32px] ">customize your coin</h5>
         </div>
@@ -133,7 +133,7 @@ const Shop = () => {
         <div className="skin-slider w-full mt-4 pl-6">
           <SkinSlider />
         </div>
-      </div>
+      </div> */}
       <div className="boosters w-full flex flex-col px-6">
         <div className="title flex items-center w-full mt-7">
           <h5 className="text-orange text-[32px] ">BUY BOOSTERS</h5>
@@ -142,7 +142,7 @@ const Shop = () => {
           <div className="title flex items-center w-full mt-5">
             <h5 className="text-orange text-[22px] ">DAILY BOOSTERS</h5>
           </div>
-          <div className="daily-boosters flex w-full gap-4 mt-5 relative">
+          <div className="daily-boosters grid grid-cols-3 w-full gap-4 mt-5 relative">
             {boosterData[0] && (
               <div className="absolute w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-[300] rounded-lg flex-col">
                 <h5 className="text-xl">You have active daily booster</h5>
@@ -203,7 +203,7 @@ const Shop = () => {
               })}
           </div>
         </div>
-        <div className="power-boosters w-full flex flex-col pb-[10px]">
+        {/* <div className="power-boosters w-full flex flex-col pb-[10px]">
           <div className="title flex items-center w-full mt-5">
             <h5 className="text-orange text-[22px] ">POWER BOOSTERS</h5>
           </div>
@@ -226,7 +226,7 @@ const Shop = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

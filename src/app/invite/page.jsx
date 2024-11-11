@@ -74,7 +74,7 @@ const Invite = () => {
                 <div className="dot w-[6px] h-[6px] bg-white rounded-full"></div>
               </div>
               <p className="font-[Poppins]">
-                YYour Friend will receive $LIFTOFF as a bonus for using your
+                Your Friend will receive $LIFTOFF as a bonus for using your
                 referral code
               </p>
             </div>

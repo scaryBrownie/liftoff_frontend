@@ -144,6 +144,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getLeaderBoard = async () => {
+    try {
+      const response = await apiClient.get(`getLeaderBoard?userId=${userId}`);
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Leaderboard geldi: ", data);
+      return data;
+    } catch (error) {
+      console.log("Leaderboard gelmedi:", error);
+    }
+  };
+
   const handleNormalTaskFinish = async (taskId) => {
     const requestPayload = encryptData(
       JSON.stringify({ userId: Number(userId), taskId: taskId.toString() })
@@ -253,10 +264,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      // setUserId(1234567891);
-      // console.log("local");
-      // console.log(userId);
-      // console.log("Telegram not available");
+      setUserId(1234567891);
+      console.log("local");
+      console.log(userId);
+      console.log("Telegram not available");
     }
   };
 
@@ -302,6 +313,7 @@ export const AuthProvider = ({ children }) => {
     getPoints,
     getStreaks,
     getReferenceData,
+    getLeaderBoard,
     authenticated,
     refId,
     userId,

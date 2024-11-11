@@ -52,16 +52,22 @@ const Game = ({ currentStreak }) => {
     setCoinFlip(isHeads ? "heads" : "tails"); // Show final coin face based on choice and backend result
     setTimeout(() => {
       // Start points animation only after the flip has resolved
-      setShowAnimation(true);
-      setCoinFlipData(result[0]);
 
       // Reset states after animation completes
       setTimeout(() => {
-        addBalance(result[0]);
-        setShowAnimation(false);
-        setIsFlipping(false); // Unlock flip for the next attempt
+        setShowAnimation(true);
+        setIsFlipping(false);
+        setCoinFlipData(result[0]);
+
+        // Unlock flip for the next attempt
+
+        setTimeout(() => {
+          setShowAnimation(false);
+          addBalance(result[0]);
+        }, 1500);
         setButtonNum(0);
-      }, 1000); // Points animation duration
+      }, 1200);
+      // Points animation duration
     }, 1200); // Delay for flip animation to complete
   };
 
