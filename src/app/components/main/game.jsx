@@ -65,11 +65,11 @@ const Game = () => {
           addBalance(result[0]);
           setShowAnimation(false);
           setStreak(result[1]);
-        }, 2000);
+        }, 1500);
         setButtonNum(0);
-      }, 1200);
+      }, 600);
       // Points animation duration
-    }, 1200); // Delay for flip animation to complete
+    }, 600); // Delay for flip animation to complete
   };
 
   // 0 none 1 heads 2 tails
