@@ -89,6 +89,24 @@ const Shop = () => {
       window.location.href = window.location.href;
     }
   };
+  const buyBoosterFourth = async () => {
+    const res = await handleBuyBooster("BOOST_5X");
+    if (res) {
+      window.location.href = window.location.href;
+    }
+  };
+  const buyBoosterFifth = async () => {
+    const res = await handleBuyBooster("BOOST_10X");
+    if (res) {
+      window.location.href = window.location.href;
+    }
+  };
+  const buyBoosterSixth = async () => {
+    const res = await handleBuyBooster("BOOST_20X");
+    if (res) {
+      window.location.href = window.location.href;
+    }
+  };
   return (
     <div className="shop w-full h-full flex flex-col pt-4 overflow-y-auto mb-8">
       <div className="balance-container w-full flex items-center justify-end px-6">
@@ -166,6 +184,15 @@ const Shop = () => {
                   if (index === 2 && boosterData[1] === "BOOST_3X") {
                     boosterHave = 2;
                   }
+                  if (index === 4 && boosterData[1] === "BOOST_5X") {
+                    boosterHave = 3;
+                  }
+                  if (index === 5 && boosterData[1] === "BOOST_10X") {
+                    boosterHave = 4;
+                  }
+                  if (index === 6 && boosterData[1] === "BOOST_20X") {
+                    boosterHave = 5;
+                  }
                 }
                 const divClassName = `daily-boost-item w-full h-[100px] rounded-lg flex-1 bg-coffee flex flex-col items-center relative cursor-pointer overflow-hidden ${
                   haveBooster
@@ -186,6 +213,15 @@ const Shop = () => {
                       }
                       if (index === 2) {
                         buyBoosterThird();
+                      }
+                      if (index === 3) {
+                        buyBoosterFourth();
+                      }
+                      if (index === 4) {
+                        buyBoosterFifth();
+                      }
+                      if (index === 5) {
+                        buyBoosterSixth();
                       }
                     }}
                     key={booster.multiplier}

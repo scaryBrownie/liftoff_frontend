@@ -264,11 +264,11 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      // setUserId(1234567891);
-      // console.log("local");
-      // console.log(userId);
-      // console.log("Telegram not available");
-    }
+//       setUserId(1234567891);
+//       console.log("local");
+//       console.log(userId);
+//       console.log("Telegram not available");
+//     }
   };
 
   const handleFlipCoin = async () => {
