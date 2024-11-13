@@ -167,7 +167,7 @@ const Shop = () => {
                     boosterHave = 2;
                   }
                 }
-                const divClassName = `daily-boost-item w-full h-[78px] rounded-lg flex-1 bg-coffee flex items-center justify-center relative cursor-pointer ${
+                const divClassName = `daily-boost-item w-full h-[100px] rounded-lg flex-1 bg-coffee flex flex-col items-center relative cursor-pointer overflow-hidden ${
                   haveBooster
                     ? boosterHave === index
                       ? "bg-red"
@@ -190,13 +190,18 @@ const Shop = () => {
                     }}
                     key={booster.multiplier}
                   >
-                    <Image
-                      src={Front}
-                      alt="front"
-                      className="h-[50px] w-auto -ml-2"
-                    />
+                    <div className="image-container flex flex-1 h-full w-full items-center justify-center">
+                      <Image
+                        src={Front}
+                        alt="front"
+                        className="h-[50px] w-auto -ml-2"
+                      />
+                    </div>
                     <div className="absolute right-[6px] top-1">
                       <h5 className="text-[16px]">{booster.multiplier}X</h5>
+                    </div>
+                    <div className="price-text h-[24px] bg-[#ffffff1d] z-[400] w-full rounded-b-md flex items-center justify-center">
+                      <h5>{booster.cost}</h5>
                     </div>
                   </div>
                 );
