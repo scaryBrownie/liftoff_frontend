@@ -159,9 +159,13 @@ const Shop = () => {
           ) : (
             <div className="daily-boosters grid grid-cols-3 w-full gap-4 mt-5 relative">
               {boosterData[0] && (
-                <div className="absolute w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-[300] rounded-lg flex-col">
-                  <h5 className="text-xl">You have active daily booster</h5>
-                  <h5 className="text-xl">{boosterData[2]}X</h5>
+                <div className="absolute w-full h-full bg-[#000000a0]  flex items-center justify-center z-[300] rounded-lg flex-col">
+                  <div className="flex flex-col w-auto items-center px-2 py-2 rounded-lg bg-orange">
+                    <h5 className="text-2xl text-white">
+                      You have active daily booster
+                    </h5>
+                    <h5 className="text-xl">{boosterData[2]}X</h5>
+                  </div>
                 </div>
               )}
 
@@ -232,7 +236,7 @@ const Shop = () => {
                       <div className="absolute right-[6px] top-1">
                         <h5 className="text-[16px]">{booster.multiplier}X</h5>
                       </div>
-                      <div className="price-text h-[24px] bg-[#ffffff1d] z-[400] w-full rounded-b-md flex items-center justify-center">
+                      <div className="price-text h-[24px] bg-[#ffffff1d]  w-full rounded-b-md flex items-center justify-center">
                         <h5>{booster.cost}</h5>
                       </div>
                     </div>
