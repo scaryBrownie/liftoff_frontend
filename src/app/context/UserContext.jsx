@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [coinImgUrl, setCoinImgUrl] = useState("");
+
   const apiClient = axios.create({
     baseURL: "https://5x4effmq11.execute-api.us-east-1.amazonaws.com/prod/",
     headers: {
@@ -65,15 +66,14 @@ export const AuthProvider = ({ children }) => {
       //    const authHeader =
       //       response.headers["x-amzn-remapped-x-amzn-remapped-authorization"];
       console.log(data);
-      const token = data.token;
+      const tempToken = data.token;
 
-      if (token) {
-        localStorage.setItem("token", token);
-        setToken(token);
+      if (tempToken != "") {
+        localStorage.setItem("token", tempToken);
+        setToken(tempToken);
         setAuthenticated(true);
-        getPoints();
-        getStreaks();
-        console.log("Token saved: " + token);
+
+        console.log("Token saved: " + tempToken);
         setIsLoading(false);
       }
 
@@ -85,6 +85,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (token == "") {
+      return;
+    }
+    getPoints();
+    getStreaks();
+  }, [token]);
   const getTasks = async () => {
     try {
       const response = await apiClient.get(`getTasks?userId=${userId}`);
