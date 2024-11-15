@@ -11,7 +11,7 @@ const Game = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
   const [buttonNum, setButtonNum] = useState(0);
-  const { handleFlipCoin, addBalance, userId, balance } = useAuth();
+  const { handleFlipCoin, addBalance, userId, balance, coinImgUrl } = useAuth();
   const [coinFlipData, setCoinFlipData] = useState();
   const [isBalanceZero, setIsBalanceZero] = useState(false);
   const [streak, setStreak] = useState(0);
@@ -128,7 +128,11 @@ const Game = () => {
           </h5>
         </div>
 
-        <CoinFlip isFlipping={isFlipping} result={coinFlip} />
+        <CoinFlip
+          isFlipping={isFlipping}
+          result={coinFlip}
+          coinImgUrl={coinImgUrl}
+        />
       </div>
       <div className="heads-tails-part w-full flex-[4] h-full relative">
         <div className="buttons-container w-full flex px-10 gap-6">

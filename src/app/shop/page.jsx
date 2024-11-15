@@ -168,8 +168,7 @@ const Shop = () => {
               {dailyBoosters &&
                 dailyBoosters.map((booster, index) => {
                   const haveBooster = boosterData[0];
-                  console.log(boosterData);
-                  console.log("Have Booster: " + haveBooster);
+
                   let boosterHave = 10;
                   if (haveBooster) {
                     if (index === 0 && boosterData[1] === "BOOST_1_5X") {

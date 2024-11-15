@@ -1,16 +1,15 @@
 "use client";
-import React, { useState } from "react";
-import Image from "next/image"; // Ensure you are importing Image from Next.js
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 import CoinImg from "../../assets/shop/coin.png";
-import BigCoinImg from "../../assets/shop/big-coin.png"; // Replace with the correct path
+import BigCoinImg from "../../assets/shop/big-coin.png";
 import { useAuth } from "@/app/context/UserContext";
 import CheckIcon from "@/app/assets/icons/navbar/check-icon";
 
-const Skin = ({ skinInfo }) => {
+const Skin = ({ skinInfo, isSelected, setSelectedSkinId, onSelect }) => {
+  const [isBought] = useState(skinInfo.isOwned);
   const { handleBuySkin } = useAuth();
-  const [isBought, setIsBought] = useState(skinInfo.isOwned);
-  const [isSelected, setIsSelected] = useState(skinInfo.isSelected);
   const [isFront, setIsFront] = useState(true);
 
   const handleBuy = async (id) => {
@@ -20,13 +19,6 @@ const Skin = ({ skinInfo }) => {
     }
   };
 
-  const handleSelect = (id) => {
-    if (isSelected) {
-      setIsSelected(false);
-    } else {
-      setIsSelected(true);
-    }
-  };
   return (
     <div
       key={skinInfo.id}
@@ -34,20 +26,18 @@ const Skin = ({ skinInfo }) => {
     >
       {isBought ? (
         <div
-          className={`item w-full flex-1 h-full bg-red rounded-lg flex flex-col cursor-pointer overflow-hidden  ${
-            isSelected && "selected-skin p-[2px] "
+          className={`item w-full flex-1 h-full bg-red rounded-lg flex flex-col cursor-pointer ${
+            isSelected ? "selected-skin p-[2px]" : ""
           }`}
-          onClick={() => {
-            handleSelect(skinInfo.id);
-          }}
+          onClick={onSelect}
         >
           <div className="main flex-1 flex-grow-0 h-full w-full bg-orange flex items-center justify-center rounded-t-lg p-2">
             <Image
               src={skinInfo.id === 0 ? BigCoinImg : skinInfo.imageUrl}
-              width={66}
-              height={66}
-              alt="liftoff-big-coin"
-              className="h-full w-auto mt-[3px]"
+              width={72}
+              height={72}
+              alt="skin-image"
+              className="h-[74px] w-auto"
             />
           </div>
           <div className="money h-[30px] w-full flex items-center justify-center flex-shrink-0">
@@ -66,11 +56,13 @@ const Skin = ({ skinInfo }) => {
           <div className="title h-[30px] w-full flex items-center justify-center">
             <h5 className="text-[14px]">{skinInfo.name}</h5>
           </div>
-          <div className="main flex-1 flex-grow-0 h-full w-full bg-orange flex items-center justify-center">
+          <div className="main flex-1 flex-grow-0 h-full w-full bg-orange flex items-center justify-center p-[6px]">
             <Image
-              src={BigCoinImg}
-              alt="liftoff-big-coin"
-              className="h-[64px] w-auto mt-[3px]"
+              src={skinInfo.id === 0 ? BigCoinImg : skinInfo.imageUrl}
+              width={60}
+              height={60}
+              alt="skin-image"
+              className="h-[60px] w-auto"
             />
           </div>
           <div className="money h-[30px] w-full flex items-center justify-center">

@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState("");
 
   const [authenticated, setAuthenticated] = useState(false);
-
+  const [coinImgUrl, setCoinImgUrl] = useState("");
   const apiClient = axios.create({
     baseURL: "https://5x4effmq11.execute-api.us-east-1.amazonaws.com/prod/",
     headers: {
@@ -127,6 +127,7 @@ export const AuthProvider = ({ children }) => {
       const data = JSON.parse(decryptData(response.data));
       console.log("Streaks geldi: ", data);
       setStreak(data.currentStreak);
+      setCoinImgUrl(data.selectedSkinData.imageUrl);
       return data;
     } catch (error) {
       console.log("Streaks gelmedi:", error);
@@ -224,6 +225,26 @@ export const AuthProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.log("Skin satın alma hatası:", error);
+      return false;
+    }
+  };
+
+  const handleSelectSkin = async (skinId) => {
+    try {
+      const response = await apiClient.post(
+        "selectSkin",
+        encryptData(
+          JSON.stringify({
+            userId: Number(userId),
+            skinId: Number(skinId),
+          })
+        )
+      );
+      const data = JSON.parse(decryptData(response.data));
+      console.log("Skin select yanıtı:", data);
+      return true;
+    } catch (error) {
+      console.log("Skin select hatası:", error);
       return false;
     }
   };
@@ -341,6 +362,7 @@ export const AuthProvider = ({ children }) => {
     handleFlipCoin,
     handleBuyBooster,
     handleBuySkin,
+    handleSelectSkin,
     addBalance,
     getTasks,
     getBooster,
@@ -349,7 +371,8 @@ export const AuthProvider = ({ children }) => {
     getReferenceData,
     getLeaderBoard,
     getSkins,
-
+    coinImgUrl,
+    setCoinImgUrl,
     authenticated,
     refId,
     userId,
