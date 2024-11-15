@@ -65,8 +65,8 @@ const Invite = () => {
                 <div className="dot w-[6px] h-[6px] bg-white rounded-full"></div>
               </div>
               <p className="font-[Poppins]">
-                Earn $150 LIFTOFF for each successful signup after they earn
-                $500 LIFTOFF
+                Earn 150 LIFTOFF POINTS for each successful signup after they
+                earn 500 LIFTOFF POINTS
               </p>
             </div>
             <div className="text flex items-center gap-2">
@@ -74,8 +74,8 @@ const Invite = () => {
                 <div className="dot w-[6px] h-[6px] bg-white rounded-full"></div>
               </div>
               <p className="font-[Poppins]">
-                Your Friend will receive $LIFTOFF as a bonus for using your
-                referral code
+                Your Friend will receive 150 LIFTOFF POINTS as a bonus for using
+                your referral code
               </p>
             </div>
           </div>

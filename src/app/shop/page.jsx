@@ -6,15 +6,20 @@ import Image from "next/image";
 import Front from "../assets/coin/tail.png";
 import Back from "../assets/coin/head.png";
 import { useAuth } from "../context/UserContext";
+import Loader from "../components/common/loader";
+import MiniLoader from "../components/common/miniLoader";
 
 const Shop = () => {
   const { authenticated } = useAuth();
   const [taskSelection, setTaskSelection] = useState(0); // 0 ALL, 1 DAILY, 2 ONE TIME
-  const { handleBuyBooster, userId, getBooster, getPoints } = useAuth();
+  const { handleBuyBooster, userId, getBooster, getPoints, getSkins } =
+    useAuth();
   const [dailyBoosters, setDailyBoosters] = useState([]);
   const [boosterData, setBoosterData] = useState([]);
   const [balance, setBalance] = useState(0);
-
+  const [isDailyLoading, setIsDailyLoading] = useState(true);
+  const [isSkinsLoading, setIsSkinsLoading] = useState(true);
+  const [skins, setSkins] = useState({});
   const handleGetBoosts = async () => {
     try {
       const data = await getBooster();
@@ -30,6 +35,18 @@ const Shop = () => {
 
       setDailyBoosters(dailyBoosters);
       console.log(data.boosterDatas);
+      setIsDailyLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetSkins = async () => {
+    try {
+      const data = await getSkins();
+      setSkins(data);
+      console.log(data);
+      setIsSkinsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +66,7 @@ const Shop = () => {
   useEffect(() => {
     handleGetBoosts();
     handleGetPoints();
+    handleGetSkins();
   }, [userId, authenticated]);
 
   const [powerBoosters, setPowerBoosters] = useState([
@@ -112,46 +130,20 @@ const Shop = () => {
       <div className="balance-container w-full flex items-center justify-end px-6">
         <ShopBalance balance={balance} />
       </div>
-      {/* <div className="customize-coin w-full flex flex-col">
+      <div className="customize-coin w-full flex flex-col">
         <div className="title flex items-center w-full mt-7 px-6">
           <h5 className="text-orange text-[32px] ">customize your coin</h5>
         </div>
-        <div className="skin-selector w-full flex items-center gap-6 mt-4 px-6">
-          <button
-            className={`text-[20px] ${
-              taskSelection === 0 ? "text-orange underline" : "text-white"
-            }`}
-            onClick={() => {
-              setTaskSelection(0);
-            }}
-          >
-            SKIN#1
-          </button>
-          <button
-            className={`text-[20px] ${
-              taskSelection === 1 ? "text-orange underline" : "text-white"
-            }`}
-            onClick={() => {
-              setTaskSelection(1);
-            }}
-          >
-            SKIN#2
-          </button>
-          <button
-            className={`text-[20px] ${
-              taskSelection === 2 ? "text-orange underline" : "text-white"
-            }`}
-            onClick={() => {
-              setTaskSelection(2);
-            }}
-          >
-            SKIN#3
-          </button>
-        </div>
-        <div className="skin-slider w-full mt-4 pl-6">
-          <SkinSlider />
-        </div>
-      </div> */}
+        {isSkinsLoading ? (
+          <div className="w-full h-[200px]">
+            <MiniLoader />
+          </div>
+        ) : (
+          <div className="skin-slider w-full mt-4 px-6">
+            <SkinSlider skins={skins} />
+          </div>
+        )}
+      </div>
       <div className="boosters w-full flex flex-col px-6">
         <div className="title flex items-center w-full mt-7">
           <h5 className="text-orange text-[32px] ">BUY BOOSTERS</h5>
@@ -160,89 +152,95 @@ const Shop = () => {
           <div className="title flex items-center w-full mt-5">
             <h5 className="text-orange text-[22px] ">DAILY BOOSTERS</h5>
           </div>
-          <div className="daily-boosters grid grid-cols-3 w-full gap-4 mt-5 relative">
-            {boosterData[0] && (
-              <div className="absolute w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-[300] rounded-lg flex-col">
-                <h5 className="text-xl">You have active daily booster</h5>
-                <h5 className="text-xl">{boosterData[2]}X</h5>
-              </div>
-            )}
+          {isDailyLoading ? (
+            <div className="w-full h-[200px]">
+              <MiniLoader />
+            </div>
+          ) : (
+            <div className="daily-boosters grid grid-cols-3 w-full gap-4 mt-5 relative">
+              {boosterData[0] && (
+                <div className="absolute w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-[300] rounded-lg flex-col">
+                  <h5 className="text-xl">You have active daily booster</h5>
+                  <h5 className="text-xl">{boosterData[2]}X</h5>
+                </div>
+              )}
 
-            {dailyBoosters &&
-              dailyBoosters.map((booster, index) => {
-                const haveBooster = boosterData[0];
-                console.log(boosterData);
-                console.log("Have Booster: " + haveBooster);
-                let boosterHave = 10;
-                if (haveBooster) {
-                  if (index === 0 && boosterData[1] === "BOOST_1_5X") {
-                    boosterHave = 0;
+              {dailyBoosters &&
+                dailyBoosters.map((booster, index) => {
+                  const haveBooster = boosterData[0];
+                  console.log(boosterData);
+                  console.log("Have Booster: " + haveBooster);
+                  let boosterHave = 10;
+                  if (haveBooster) {
+                    if (index === 0 && boosterData[1] === "BOOST_1_5X") {
+                      boosterHave = 0;
+                    }
+                    if (index === 1 && boosterData[1] === "BOOST_2X") {
+                      boosterHave = 1;
+                    }
+                    if (index === 2 && boosterData[1] === "BOOST_3X") {
+                      boosterHave = 2;
+                    }
+                    if (index === 4 && boosterData[1] === "BOOST_5X") {
+                      boosterHave = 3;
+                    }
+                    if (index === 5 && boosterData[1] === "BOOST_10X") {
+                      boosterHave = 4;
+                    }
+                    if (index === 6 && boosterData[1] === "BOOST_20X") {
+                      boosterHave = 5;
+                    }
                   }
-                  if (index === 1 && boosterData[1] === "BOOST_2X") {
-                    boosterHave = 1;
-                  }
-                  if (index === 2 && boosterData[1] === "BOOST_3X") {
-                    boosterHave = 2;
-                  }
-                  if (index === 4 && boosterData[1] === "BOOST_5X") {
-                    boosterHave = 3;
-                  }
-                  if (index === 5 && boosterData[1] === "BOOST_10X") {
-                    boosterHave = 4;
-                  }
-                  if (index === 6 && boosterData[1] === "BOOST_20X") {
-                    boosterHave = 5;
-                  }
-                }
-                const divClassName = `daily-boost-item w-full h-[100px] rounded-lg flex-1 bg-coffee flex flex-col items-center relative cursor-pointer overflow-hidden ${
-                  haveBooster
-                    ? boosterHave === index
-                      ? "bg-red"
-                      : "bg-opacity-40"
-                    : ""
-                }`;
-                return (
-                  <div
-                    className={divClassName}
-                    onClick={() => {
-                      if (index === 0) {
-                        buyBoosterFirst();
-                      }
-                      if (index === 1) {
-                        buyBoosterSecond();
-                      }
-                      if (index === 2) {
-                        buyBoosterThird();
-                      }
-                      if (index === 3) {
-                        buyBoosterFourth();
-                      }
-                      if (index === 4) {
-                        buyBoosterFifth();
-                      }
-                      if (index === 5) {
-                        buyBoosterSixth();
-                      }
-                    }}
-                    key={booster.multiplier}
-                  >
-                    <div className="image-container flex flex-1 h-full w-full items-center justify-center">
-                      <Image
-                        src={Front}
-                        alt="front"
-                        className="h-[50px] w-auto -ml-2"
-                      />
+                  const divClassName = `daily-boost-item w-full h-[100px] rounded-lg flex-1 bg-coffee flex flex-col items-center relative cursor-pointer overflow-hidden ${
+                    haveBooster
+                      ? boosterHave === index
+                        ? "bg-red"
+                        : "bg-opacity-40"
+                      : ""
+                  }`;
+                  return (
+                    <div
+                      className={divClassName}
+                      onClick={() => {
+                        if (index === 0) {
+                          buyBoosterFirst();
+                        }
+                        if (index === 1) {
+                          buyBoosterSecond();
+                        }
+                        if (index === 2) {
+                          buyBoosterThird();
+                        }
+                        if (index === 3) {
+                          buyBoosterFourth();
+                        }
+                        if (index === 4) {
+                          buyBoosterFifth();
+                        }
+                        if (index === 5) {
+                          buyBoosterSixth();
+                        }
+                      }}
+                      key={booster.multiplier}
+                    >
+                      <div className="image-container flex flex-1 h-full w-full items-center justify-center">
+                        <Image
+                          src={Front}
+                          alt="front"
+                          className="h-[50px] w-auto -ml-2"
+                        />
+                      </div>
+                      <div className="absolute right-[6px] top-1">
+                        <h5 className="text-[16px]">{booster.multiplier}X</h5>
+                      </div>
+                      <div className="price-text h-[24px] bg-[#ffffff1d] z-[400] w-full rounded-b-md flex items-center justify-center">
+                        <h5>{booster.cost}</h5>
+                      </div>
                     </div>
-                    <div className="absolute right-[6px] top-1">
-                      <h5 className="text-[16px]">{booster.multiplier}X</h5>
-                    </div>
-                    <div className="price-text h-[24px] bg-[#ffffff1d] z-[400] w-full rounded-b-md flex items-center justify-center">
-                      <h5>{booster.cost}</h5>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+                  );
+                })}
+            </div>
+          )}
         </div>
         {/* <div className="power-boosters w-full flex flex-col pb-[10px]">
           <div className="title flex items-center w-full mt-5">
