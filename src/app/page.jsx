@@ -43,7 +43,7 @@ export default function Home() {
                 <BalanceDisplayMain balance={balance} />
               </div>
             </div>
-            <div className="game-container w-full h-full flex-1 flex flex-col  relative">
+            <div className="game-container w-full h-full flex-1 flex flex-col">
               <Game />
             </div>
           </div>

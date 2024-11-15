@@ -12,6 +12,7 @@ const SkinSlider = ({ skins }) => {
     const initiallySelectedSkin = skins.find((skin) => skin.isSelected);
     if (initiallySelectedSkin) {
       setSelectedSkinId(initiallySelectedSkin.id);
+      setCoinImgUrl(initiallySelectedSkin.imageUrl);
     }
   }, [skins]);
 
