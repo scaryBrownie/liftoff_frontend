@@ -20,7 +20,8 @@ const CoinFlip = ({ isFlipping, result, coinImgUrl }) => {
   // Inline styles for sideA and sideB
 
   const [sideAStyle, setSideAStyle] = useState({
-    backgroundImage: `url(${coinImgUrl})`, // Initial state with the first coinImgUrl
+    backgroundImage: `url(${coinImgUrl})`,
+
     zIndex: 100,
   });
 

@@ -100,7 +100,7 @@
 }
 
 .sideA {
-  background-image: url("./assets/coin/head.png"); /* Use your actual image path */
+  image-rendering: optimizeSpeed; /* Use your actual image path */
   z-index: 100;
 }
 
