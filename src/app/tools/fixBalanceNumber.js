@@ -1,12 +1,9 @@
 export const formatFloat = (value) => {
-   if (!isFloat(value)) return;
-   return value
-      .toFixed(1)
-      .replace(".", ",")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  if (!isFloat(value)) return;
+  return value.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 export const isFloat = (value) => {
-   return !isNaN(value) && parseFloat(value) === Number(value);
+  return !isNaN(value) && parseFloat(value) === Number(value);
 };
 
 // Örnek kullanım
