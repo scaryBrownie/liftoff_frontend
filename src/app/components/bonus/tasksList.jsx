@@ -2,7 +2,7 @@ import { useAuth } from "@/app/context/UserContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-
+import CoinImg from "../../assets/shop/coin.png";
 const TasksList = ({
   tasks,
   handleInputTaskOpen,
@@ -40,8 +40,11 @@ const TasksList = ({
                 <h5 className="text-[12px] font-[Poppins] font-semibold">
                   {task.title}
                 </h5>
-                <h5 className="text-[14px] -mt-[2px] text-yellow">
-                  +{task.points} $LIFTOFF
+                <h5 className="text-[14px] -mt-[2px] text-yellow flex items-center">
+                  +{task.points}{" "}
+                  <span>
+                    <Image src={CoinImg} alt="coin" className="w-4 h-auto" />
+                  </span>
                 </h5>
               </div>
             </div>
