@@ -62,12 +62,8 @@ export const AuthProvider = ({ children }) => {
         )
       );
       const data = JSON.parse(decryptData(response.data));
-      //    console.log("Gelen login yaniti:", data);
-      //    const authHeader =
-      //       response.headers["x-amzn-remapped-x-amzn-remapped-authorization"];
       console.log(data);
       const tempToken = data.token;
-
       if (tempToken != "") {
         localStorage.setItem("token", tempToken);
         setToken(tempToken);
@@ -76,7 +72,6 @@ export const AuthProvider = ({ children }) => {
         console.log("Token saved: " + tempToken);
         setIsLoading(false);
       }
-
       console.log("Token:", token);
     } catch (error) {
       setIsActive(false);
@@ -86,12 +81,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token == "") {
+    if (token === "") {
       return;
     }
     getPoints();
     getStreaks();
   }, [token]);
+
   const getTasks = async () => {
     try {
       const response = await apiClient.get(`getTasks?userId=${userId}`);
@@ -326,10 +322,10 @@ export const AuthProvider = ({ children }) => {
 
       console.log("userId:", chatId);
     } else {
-      setUserId(1234567891);
-      console.log("local");
-      console.log(userId);
-      console.log("Telegram not available");
+      // setUserId(1234567891);
+      // console.log("local");
+      // console.log(userId);
+      // console.log("Telegram not available");
     }
   };
 
